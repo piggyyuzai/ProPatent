@@ -231,6 +231,44 @@ body {
 #output {
     display:none;
 }
+#service {
+}
+#service-box,#code-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    right: 10px;
+    bottom: 100px;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    color: #4d70ff;
+    background-color: #fff;
+    box-shadow: #4d70ff 0 0 10px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.service-logo {
+    width: 30px;
+    height: 30px;
+}
+#code-box {
+    display: none;
+    width: 200px;
+    height: 250px;
+    right: 90px;
+    color: #8a9eb9;
+    background-color: #fff;
+    box-shadow: #8a9eb9 0 0 20px;
+}
+.qr-code {
+    width: 130px;
+    height: 130px;
+    margin: 20px auto;
+}
 .chat-container small {
     color:gray;
     display:flex;

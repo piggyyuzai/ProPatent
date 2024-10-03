@@ -18,7 +18,18 @@ function shake(element) {
         element.classList.remove("shake"); // 移除晃动类
     }, 900); // 900毫秒后移除
 }
-
+// 切换微信客服码显示
+function toggleCodeBox() {
+    var codeBox = document.getElementById('code-box');
+    codeBox.style.display = codeBox.style.display=== 'flex' ? 'none' : 'flex';
+}
+document.addEventListener('click',function (event) {
+    var codeBox = document.getElementById('code-box');
+    var serviceBox = document.getElementById('service-box');
+    if (codeBox.style.display === 'flex' && !serviceBox.contains(event.target) && !codeBox.contains(event.target)) {
+        codeBox.style.display = 'none';
+    }
+});
 
 
 
@@ -64,7 +75,6 @@ async function inputFile() {
 
 // 显示提取的纯文本内容
 function displayTextContent(textContent, extractContent) {
-    extractContent.style.padding = "20px";
     extractContent.innerHTML = ""; // 清空提取内容
     if (textContent.trim() !== "") {
         var fileDiv = document.createElement("div");
@@ -125,8 +135,7 @@ async function readDocx(file, extractContent) {
                 // 设置图片格式
                 htmlContent = htmlContent.replace(/<img /g, '<img style="max-width:40%;max-height:40vh;display:block;margin:0 auto;" ');
                 // 创建一个可编辑的 div，并将 HTML 内容插入其中
-                extractContent.style.padding = "0px";
-                extractContent.innerHTML = "<div id='editable-content' contenteditable='true' style='padding:20px;'>" + htmlContent + "</div>";
+                extractContent.innerHTML = htmlContent;
             }).catch(function (err) {
                 console.error("DOCX 转换为 HTML 出错: ", err);
                 reject(err);

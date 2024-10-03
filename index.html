@@ -149,7 +149,7 @@
                 <img src="./asset/check.png" style="width:30px;height:30px;margin-right:10px;">
                 核对修改交底书
             </div>
-            <div id="extract-content" class="border-box">
+            <div id="extract-content" class="border-box" contenteditable='true'>
 
             </div>
             <div class="button-container">
@@ -161,7 +161,7 @@
         <!--IPC分类号查询-->
         <div id="ipc-search">
             <div class="title">IPC分类号查询</div>
-            <div id="ipc-content" class="border-box">
+            <div id="ipc-content" class="border-box" contenteditable='true'>
                 <div>查询中，请稍后...</div>
 <!--                <div>-->
 <!--                    专利名称：<span id="patent-name"></span>-->
@@ -173,6 +173,9 @@
 <!--                    分类说明：<span id="ipc-explain"></span>-->
 <!--                </div>-->
             </div>
+            <div class="row">
+                <a href="./file/IPC分类号表单.pdf">查看IPC分类号表单</a>
+            </div>
             <div class="button-container">
                 <button class="back-button" onclick="prevStep('ipc-search','extract-input')">上一步</button>
                 <button id="ipc-confirm-button" class="send-button" onclick="nextStep('ipc-search','output');">确认并生成</button>
@@ -182,12 +185,25 @@
         <!--生成专利申请书-->
         <div id="output">
             <div class="title">导出专利申请书</div>
-            <div id="output-content" class="border-box">
+            <div id="output-content" class="border-box" contenteditable='true'>
 
             </div>
             <div class="button-container">
                 <button class="back-button" onclick="prevStep('output','ipc-search')">上一步</button>
                 <button id="output-button" class="send-button">导出</button>
+            </div>
+        </div>
+
+        <!--客服-->
+        <div id="service">
+            <div id="service-box" onclick="toggleCodeBox()">
+                <img src="./asset/service.png" class="service-logo">
+                微信客服
+            </div>
+            <div id="code-box">
+                微信客服
+                <img src="./asset/code.png" class="qr-code">
+                服务时间：9:00-18:00
             </div>
         </div>
     </div>
