@@ -159,15 +159,6 @@ function ipcSearch() {
     var extractContent = document.getElementById("extract-content");
 
     nextStep('extract-input', 'ipc-search');
-    // 更新页面中的信息
-    // var patentName = "专利名称1";  // 你可以根据实际情况动态赋值
-    // var ipcNumber = "IPC分类号2";
-    // var ipcExplain = "分类说明3";
-    // // 更新页面中的信息
-    // document.getElementById("patent-name").textContent = patentName;
-    // document.getElementById("ipc-number").textContent = ipcNumber;
-    // document.getElementById("ipc-explain").textContent = ipcExplain;
-    // console.log(extractContent.innerText);
 
     // 将 extractContent.innerText 与请求消息拼接
     var messageToSend = extractContent.innerText + " 帮我查询这个专利技术交底书的IPC分类号和分类说明。";
@@ -175,27 +166,64 @@ function ipcSearch() {
 
 }
 
-function aiChat(messageToSend) {
-    // 发送请求到 API
-    fetch("https://api.link-ai.tech/v1/chat/completions", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer Link_v0SpPeJUGHnfcScMDLdHd7HOPRs440zs3qszhBXesO"
-        },
-        body: JSON.stringify({"app_code": "KoJA0clf", "messages": [{"role": "user", "content": messageToSend}]})
-    })
-        .then(response => {
-            if (!response.ok) {throw new Error(`请求异常, 错误码=${response.status}`);}
-            return response.json();
-        })
-        .then(data => {
-            var replyText = data.choices[0].message.content;
-            document.getElementById("ipc-content").innerText = replyText;
-        })
-        .catch(error => {
-            console.error('请求失败:', error);
-            document.getElementById("ipc-content").innerText = `请求失败: ${error.message}`;
+async function aiChat(messageToSend) {
+    const url = "https://api.link-ai.tech/v1/chat/completions";
+    const headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer Link_v0SpPeJUGHnfcScMDLdHd7HOPRs440zs3qszhBXesO"
+    };
+    const body = JSON.stringify({
+        "app_code": "KoJA0clf",
+        "messages": [{"role": "user", "content": messageToSend}],
+        "stream": true
+    });
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: headers,
+            body: body
         });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let result = '';
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value, { stream: true });
+            const lines = chunk.split('\n');
+            for (const line of lines) {
+                if (line.startsWith("data: ")) {
+                    const jsonString = line.replace("data: ", "");
+                    if (jsonString === "[DONE]") {
+                        break; // End of stream
+                    }
+
+                    try {
+                        const chunkMessage = JSON.parse(jsonString);
+                        if (chunkMessage.choices && chunkMessage.choices.length > 0) {
+                            const content = chunkMessage.choices[0].delta.content;
+                            if (content) {
+                                result += content; // Append content to the result
+                                // Update the UI with the new content
+                                document.getElementById('ipc-content').innerText = result; // Assume there's an element with id 'output'
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error parsing JSON:', error);
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
 }
 
