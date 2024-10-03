@@ -153,20 +153,9 @@ async function readDocx(file, extractContent) {
 
 
 
-// IPC信息
-function ipcSearch() {
-    // 在执行查询时，将 extract-content 内的文字内容输出到控制台
-    var extractContent = document.getElementById("extract-content");
-
-    nextStep('extract-input', 'ipc-search');
-
-    // 将 extractContent.innerText 与请求消息拼接
-    var messageToSend = extractContent.innerText + " 帮我查询这个专利技术交底书的IPC分类号和分类说明。";
-    aiChat(messageToSend);
-
-}
-
-async function aiChat(messageToSend) {
+// AI对话回复
+async function aiChat(messageToSend,contentAreaId) {
+    var contentArea = document.getElementById(contentAreaId);
     const url = "https://api.link-ai.tech/v1/chat/completions";
     const headers = {
         "Content-Type": "application/json",
@@ -194,26 +183,27 @@ async function aiChat(messageToSend) {
         let result = '';
 
         while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
+            const { done, value } = await reader.read(); // 从流中读取一个数据块
+            if (done) break; // 如果流结束，则退出循环
 
-            const chunk = decoder.decode(value, { stream: true });
-            const lines = chunk.split('\n');
+            const chunk = decoder.decode(value, { stream: true }); // 解码数据块为字符串
+            const lines = chunk.split('\n'); //将解码的字符串按行分割
+            // 解析每一行数据
             for (const line of lines) {
-                if (line.startsWith("data: ")) {
-                    const jsonString = line.replace("data: ", "");
+                if (line.startsWith("data: ")) { // 检查是否是数据块的开头
+                    const jsonString = line.replace("data: ", ""); // 移出开头的 "data: "
                     if (jsonString === "[DONE]") {
-                        break; // End of stream
+                        break; // 流结束退出
                     }
-
+                    // 解析 JSON 数据块
                     try {
                         const chunkMessage = JSON.parse(jsonString);
                         if (chunkMessage.choices && chunkMessage.choices.length > 0) {
-                            const content = chunkMessage.choices[0].delta.content;
+                            const content = chunkMessage.choices[0].delta.content; // 获取内容
                             if (content) {
-                                result += content; // Append content to the result
-                                // Update the UI with the new content
-                                document.getElementById('ipc-content').innerText = result; // Assume there's an element with id 'output'
+                                result += content; // 将内容追加到结果字符串中
+                                // 更新页面显示
+                                contentArea.innerText = result;
                             }
                         }
                     } catch (error) {
@@ -224,6 +214,42 @@ async function aiChat(messageToSend) {
         }
     } catch (error) {
         console.error('Fetch error:', error);
+    }
+}
+
+
+// IPC信息
+function ipcSearch() {
+    nextStep('extract-input', 'ipc-search');
+    var extractContent = document.getElementById("extract-content");
+    // 将 extractContent.innerText 与请求消息拼接
+    var messageToSend = extractContent.innerText + " 帮我查询这个专利技术交底书的IPC分类号和分类说明。";
+    aiChat(messageToSend, 'ipc-content');
+
+}
+
+
+function output() {
+    nextStep('ipc-search','output');
+    var extractContent = document.getElementById("extract-content");
+    var messageToSend = extractContent.innerText + " 将我给你的这篇技术交底书重构，按照标题、技术领域、背景技术、发明内容、附图说明、具体实施方式几个部分详细说明。";
+    aiChat(messageToSend, 'output-content');
+}
+
+
+function copyToClipboard(areaId) {
+    var copyContent = document.getElementById(areaId);
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(copyContent.innerText).then(function() {
+            console.log("复制成功: " + copyContent.innerText);
+        }, function(err) {
+            console.log("复制失败: ", err);
+        });
+    } else {
+        // 兼容处理，使用传统的选择和复制方式
+        copyContent.select();
+        document.execCommand("copy");
+        console.log("复制成功: " + copyContent.innerText);
     }
 }
 

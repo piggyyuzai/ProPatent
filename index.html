@@ -117,7 +117,7 @@
             <div class="row" style="border-left:4px solid #4d70ff;padding-left:10px;">
                 请输入专利名称：
             </div>
-            <input type="text" id="file-title" placeholder="请输入专利名称">
+            <input type="text" id="file-title" placeholder="请输入专利名称" autocomplete="off">
             <div class="row">上传技术交底书文件</div>
             <div style="margin-top:8px;width:100%;text-align:left;">
                 <input type="file" id="file-input" accept=".pdf,.docx,.txt">
@@ -169,7 +169,7 @@
             </div>
             <div class="button-container">
                 <button class="back-button" onclick="prevStep('ipc-search','extract-input')">上一步</button>
-                <button id="ipc-confirm-button" class="send-button" onclick="nextStep('ipc-search','output');">确认并生成</button>
+                <button id="ipc-confirm-button" class="send-button" onclick="output();">确认并生成</button>
             </div>
         </div>
 
@@ -177,11 +177,11 @@
         <div id="output">
             <div class="title">导出专利申请书</div>
             <div id="output-content" class="border-box" contenteditable='true'>
-
+                <div>生成中，请稍后...</div>
             </div>
             <div class="button-container">
                 <button class="back-button" onclick="prevStep('output','ipc-search')">上一步</button>
-                <button id="output-button" class="send-button">导出</button>
+                <button id="output-button" class="send-button" onclick="copyToClipboard('output-content')">一键复制</button>
             </div>
         </div>
 
