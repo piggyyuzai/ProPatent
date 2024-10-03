@@ -135,7 +135,7 @@
                 <input type="checkbox" id="checkbox">
                 <label for="checkbox" style="margin-left:5px;">
                     我已阅读并同意
-                    <a href="#" style="color:#4d70ff;font-weight:bold;">《用户协议》</a>
+                    <a href="#" style="color:#4d70ff;font-weight:bold;" onclick="userAgreement()">《用户协议》</a>
                     并同意：生成内容仅供参考，不作为正式递交申请使用
                 </label>
             </div>
@@ -176,6 +176,9 @@
         <!--生成专利申请书-->
         <div id="output">
             <div class="title">导出专利申请书</div>
+            <div class="row" style="margin:0 auto 10px;font-weight:bold;">
+                核对修改专利申请书
+            </div>
             <div id="output-content" class="border-box" contenteditable='true'>
                 <div>生成中，请稍后...</div>
             </div>
