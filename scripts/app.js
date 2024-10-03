@@ -255,7 +255,7 @@ function copyToClipboard(areaId) {
 
 
 function userAgreement() {
-    alert('用户协议\n' +
+    alert('ProPatent用户协议\n' +
         '\n' +
         '最后更新日期： 2024-10-4\n' +
         '\n' +
