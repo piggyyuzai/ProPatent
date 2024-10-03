@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>ProPatent——AI专利撰写助手</title>
+    <link rel="icon" href="./asset/logo.png">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./scripts/app.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docx-preview@0.1.15/dist/docx-preview.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.23.0/docxtemplater.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://unpkg.com/docx@8.1.0/build/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+
+</head>
+<body>
+
+<!-- 左侧菜单栏 -->
+<div class="sidebar">
+    <img src="./asset/logo.png" class="sidebar-logo">
+    <div class="sidebar-title">ProPatent</div>
+    <div class="sidebar-title">AI专利撰写助手</div>
+    <div style="margin-top:20px;">
+        <div class="sidebar-menu active">专利撰写</div>
+        <div class="sidebar-menu">知产咨询</div>
+        <div class="sidebar-menu">IPC查询</div>
+        <div class="sidebar-menu">我的订单</div>
+    </div>
+    <!-- 用户信息区 -->
+    <div class="user">
+        <img src="./asset/user.png" class="user-avatar">
+        <div class="user-info">
+            <div class="user-name">用户名</div>
+            <div class="user-vip">会员到期时间：2024-12-31</div>
+        </div>
+    </div>
+    <div class="logout" onclick="">退出登录</div>
+
+</div>
+
+<!--流程栏-->
+<div class="flow-container">
+    <div class="flow-title">智能撰写流程</div>
+    <div class="flow-title2">(示例仅供参考)</div>
+    <!-- 每个流程步骤 -->
+    <div class="flow-item">
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-title">输入技术交底书</div>
+        </div>
+        <div class="step-description">
+            <div class="step-description-container">
+                <div>技术领域：</div>
+                <div>本课题研究“多段带鳍薄壁曲线壳体分段成形工艺方法”以及成形过程中使用的装置“多段曲线薄壁壳体自定心装焊组合装置”、“带鳍薄壁曲线壳体的鳍板预焊装置及工艺”的设计...</div>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-title">统一交底书标准</div>
+        </div>
+        <div class="step-description">
+            <div class="step-description-container">
+                <div>1. 现有技术及存在的技术问题...</div>
+                <div>2. 本申请的技术方案以及达到的技术效果...</div>
+                <div>3. 具体实施例...</div>
+                <div>4. 其它（比如流程图、结构图的描述）...</div>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-title">查询IPC分类号</div>
+        </div>
+        <div class="step-description">
+            <div class="step-description-container">
+                <div>根据该专利的权利要求以及发明内容，该专利的相关IPC分类号可以涵盖多个方面，具体如下：</div>
+                <div>F01N9/00 - 排气处理装置的电控。</div>
+                <div>这个分类号涵盖了排气处理系统的电气控制...</div>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-title">生成专利申请书</div>
+        </div>
+        <div class="step-description">
+            <div class="step-description-container">
+                <div>说明书摘要</div>
+                <div>本发明公开一种壳体定位装置及壳体成形方法。其中，该装置包括：固定模和移动模...</div>
+                <div>权利要求书</div>
+                <div>1. 一种壳体定位装置，其特征在于，包括：</div>
+                <div>固定模，于所述固定模的顶端设置有用于将待加工壳体轴向的一侧夹持固定的第一U型体...</div>
+                <div>说明书</div>
+                <div>一种壳体定位装置及壳体成形方法</div>
+                <div>技术领域</div>
+                <div>本发明涉及壳体加工技术领域，具体而言，涉及一种壳体定位装置及壳体成形方法...</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- 右侧对话窗口 -->
+<div class="chat-container">
+    <div id="chat-box">
+        <!-- 初始 -->
+        <div id="base-input">
+            <div class="ai-title">
+                <img src="./asset/logo.png" class="ai-logo">
+                AI一键生成，为您节省撰写时间！
+            </div>
+            <div class="title">技术交底书</div>
+            <div style="font-size:12px;margin-top:-10px;margin-bottom:20px;">提供技术交底书，统一技术交底书格式标准</div>
+            <div class="row" style="border-left:4px solid #4d70ff;padding-left:10px;">
+                请输入专利名称：
+            </div>
+            <input type="text" id="file-title" placeholder="请输入专利名称">
+            <div class="row">上传技术交底书文件</div>
+            <div style="margin-top:8px;width:100%;text-align:left;">
+                <input type="file" id="file-input" accept=".pdf,.docx,.txt">
+            </div>
+            <div class="row" style="font-size:10px;">
+                <li>如有错误只需重新上传文件即可</li>
+            </div>
+<!--            <div style="margin-top:10px;width:100%;text-align:left;"><li>附图</li></div>-->
+<!--            <div class="row">-->
+<!--                <input type="file" id="pic-input" style="" accept="image/*">-->
+<!--                <div style="margin-left:10px;">添加更多附图</div>-->
+<!--            </div>-->
+<!--            <div style="margin-top:4px;width:100%;text-align:left;font-size:10px;">注意：上传的附图序号需要与技术交底书中的序号对应，否则无法正确生成专利申请书。</div>-->
+            <div class="row" id="user-agreement" style="margin-bottom:30px;">
+                <input type="checkbox" id="checkbox">
+                <label for="checkbox" style="margin-left:5px;">
+                    我已阅读并同意
+                    <a href="#" style="color:#4d70ff;font-weight:bold;">《用户协议》</a>
+                    并同意：生成内容仅供参考，不作为正式递交申请使用
+                </label>
+            </div>
+            <button id="input-file-button" class="send-button" onclick="inputFile()">提交生成</button>
+        </div>
+
+        <!--提取内容-->
+        <div id="extract-input">
+            <div class="title">技术交底书标准化</div>
+            <div class="row" style="margin:0 auto 10px;font-weight:bold;">
+                <img src="./asset/check.png" style="width:30px;height:30px;margin-right:10px;">
+                核对修改交底书
+            </div>
+            <div id="extract-content" class="border-box">
+
+            </div>
+            <div class="button-container">
+                <button class="back-button" onclick="prevStep('extract-input','base-input')">上一步</button>
+                <button id="ipc-search-button" class="send-button" onclick="ipcSearch();">查询IPC分类号</button>
+            </div>
+        </div>
+
+        <!--IPC分类号查询-->
+        <div id="ipc-search">
+            <div class="title">IPC分类号查询</div>
+            <div id="ipc-content" class="border-box">
+                <div>查询中，请稍后...</div>
+<!--                <div>-->
+<!--                    专利名称：<span id="patent-name"></span>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    IPC分类号：<span id="ipc-number"></span>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    分类说明：<span id="ipc-explain"></span>-->
+<!--                </div>-->
+            </div>
+            <div class="button-container">
+                <button class="back-button" onclick="prevStep('ipc-search','extract-input')">上一步</button>
+                <button id="ipc-confirm-button" class="send-button" onclick="nextStep('ipc-search','output');">确认并生成</button>
+            </div>
+        </div>
+
+        <!--生成专利申请书-->
+        <div id="output">
+            <div class="title">导出专利申请书</div>
+            <div id="output-content" class="border-box">
+
+            </div>
+            <div class="button-container">
+                <button class="back-button" onclick="prevStep('output','ipc-search')">上一步</button>
+                <button id="output-button" class="send-button">导出</button>
+            </div>
+        </div>
+    </div>
+    <small> © 2024 ProPatent —— 坤晟智能. All Rights Reserved. </small>
+</div>
+
+<script>
+
+
+
+</script>
+</body>
+</html>
