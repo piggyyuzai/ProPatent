@@ -130,6 +130,7 @@ body {
     height: 40px;
     border-radius: 10px;
     position: absolute;
+    top: 0px;
 }
 .message.me img {
     right: -50px;
