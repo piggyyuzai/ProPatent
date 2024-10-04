@@ -65,7 +65,7 @@ function addMessage(role, content) {
         chatContainer.appendChild(messageDiv);
     } else {
         messageDiv.classList.add('message', role);
-        messageDiv.innerHTML = `<img src="${role === 'me' ? 'https://piggyyuzai.github.io/KleeWeb/img/welcome.gif' : 'https://piggyyuzai.github.io/ProPatent/asset/logo.png'}">
+        messageDiv.innerHTML = `<img src="${role === 'me' ? 'https://piggyyuzai.github.io/KleeWeb/img/welcome.gif' : './asset/logo.png'}">
                                 ${content}`;
         chatContainer.appendChild(messageDiv);
         chatContainer.scrollTop = chatContainer.scrollHeight;

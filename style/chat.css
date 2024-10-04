@@ -66,6 +66,40 @@ body {
     bottom:10px;
 }
 
+/*历史记录*/
+.history-container {
+    flex-shrink:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:200px;
+    padding:20px 0px;
+    background-color:#f6f6f6;
+    border-right:1px solid #e0e0e0;
+    overflow-y:auto;
+}
+.history-container img {
+    width:20px;
+    height:20px;
+    margin:0 10px;
+}
+.message-item,#new-message {
+    width:140px;
+    height:20px;
+    display:flex;
+    align-items:center;
+    /*background-color:#dbe9fe;*/
+    color:#4d70ff;
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:10px;
+    font-size:14px;
+}
+#new-message {
+    background-color:#4d70ff;
+    color:white;
+}
+
 /*聊天窗口*/
 .chat-container {
     flex-grow:1;
@@ -74,15 +108,51 @@ body {
     background:linear-gradient(to bottom left,#e3eeff,#ffffff);
     padding:20px;
 }
-
-
 #chat-box {
     flex-grow:1;
     overflow-y:auto;
     padding:0 20px;
     font-size:16px;
+}
+/*对话框*/
+.message {
+    margin: 5px 50px 5px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    display: inline-block;
+    width: auto;
+    clear: both;
+    position: relative;
+}
+.message img {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    position: absolute;
+}
+.message.me img {
+    right: -50px;
+}
+.message.reply img {
+    left: -50px;
+}
+.message.me {
+    float: right;
+    background-color: white;
 
 }
+.message.reply {
+    float: left;
+    background: linear-gradient(to bottom left, rgba(77, 112, 255, 0.3), rgba(77, 255, 249, 0.3));
+}
+.message-divider {
+    text-align: center;
+    clear: both;
+    margin-top: 10px;
+    color: gray;
+}
+/*输入框*/
 .input-container {
     display:flex;
     margin-top:10px;
@@ -110,44 +180,6 @@ body {
     cursor:pointer;
 }
 
-.message {
-    margin: 5px 50px 5px;
-    padding: 10px;
-    border-radius: 10px;
-    max-width: 70%;
-    display: inline-block;
-    width: auto;
-    clear: both;
-    position: relative;
-}
-.message img {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    position: absolute;
-    top: 0px;
-}
-.message.me img {
-    right: -50px;
-}
-.message.reply img {
-    left: -50px;
-}
-.message.me {
-    float: right;
-    background-color: white;
-
-}
-.message.reply {
-    float: left;
-    background: linear-gradient(to bottom left, rgba(77, 112, 255, 0.3), rgba(77, 255, 249, 0.3));
-}
-.message-divider {
-    text-align: center;
-    clear: both;
-    margin-top: 10px;
-    color: gray;
-}
 
 .chat-container small {
     color:gray;
