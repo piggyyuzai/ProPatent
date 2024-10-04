@@ -6,9 +6,7 @@ function nextStep(currentId, nextId) {
     document.getElementById(nextId).style.display = 'flex';
 }
 function prevStep(currentId, prevId) {
-    // 隐藏当前步骤
     document.getElementById(currentId).style.display = 'none';
-    // 显示上一步的步骤
     document.getElementById(prevId).style.display = 'flex';
 }
 // 晃动提醒
