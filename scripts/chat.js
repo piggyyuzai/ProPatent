@@ -15,7 +15,9 @@ function adjustHeight(textarea) {
 }
 
 let msgList = [];
-
+msgList.forEach(msg => {
+    addMessage(msg.role, msg.content);
+});
 // 在页面加载时从本地存储加载历史消息
 window.onload = function() {
     const savedMsgList = JSON.parse(localStorage.getItem('msgList'));
@@ -29,7 +31,7 @@ window.onload = function() {
     // 如果是第一次发送消息，则显示当前日期和时间
     const currentDate = new Date().toLocaleString();
     addMessage('', currentDate);
-    addMessage('reply',
+    addMessage('assistant',
         '<div style="font-size:20px;font-weight:bold;">您好！我是ProPatent知识产权助手，请问有什么可以帮助你的吗？</div>' +
         '<div style="margin-top:4px;">我拥有强大的AI引擎，可以为进入中国、美国、欧洲、日本、英国和澳大利亚市场提供知识产权咨询。</div>' +
         '<div style="margin-top:10px;">您可以问我：</div>' +
@@ -38,6 +40,7 @@ window.onload = function() {
         // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'你能否解释一下美国的版权程序？\';sendMessage();"><li><u>你能否解释一下美国的版权程序？</u></li></div>' +
         // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'如何在美国申请发明专利？\';sendMessage();"><li><u>如何在美国申请发明专利？</u></li></div>' +
         questionElements);
+    newMsgList = [];
 };
 const questions = [
     '如何在中国注册商标？',
@@ -48,7 +51,6 @@ const questions = [
 const questionElements = questions.map(question =>
     `<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById('user-input').value='${question}';sendMessage();"><li><u>${question}</u></li></div>`
 ).join('');
-
 
 // 在发送消息时保存消息列表到本地存储
 function saveMessagesToLocalStorage() {
@@ -65,7 +67,7 @@ function addMessage(role, content) {
         chatContainer.appendChild(messageDiv);
     } else {
         messageDiv.classList.add('message', role);
-        messageDiv.innerHTML = `<img src="${role === 'me' ? 'https://piggyyuzai.github.io/KleeWeb/img/welcome.gif' : './asset/logo.png'}">
+        messageDiv.innerHTML = `<img src="${role === 'user' ? 'https://piggyyuzai.github.io/KleeWeb/img/welcome.gif' : './asset/logo.png'}">
                                 ${content}`;
         chatContainer.appendChild(messageDiv);
         chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -77,49 +79,116 @@ function addMessage(role, content) {
     }
 }
 
-function sendMessage() {
-    const messageInput = document.getElementById('user-input');
-    const messageContent = messageInput.value.trim();
-    if (messageContent !== '') {
-        const newMsg = { role: 'me', content: messageContent };
-        msgList.push(newMsg);
-        addMessage('me', messageContent);
-        messageInput.value = '';
-        saveMessagesToLocalStorage();
-
-        const thinking = addMessage('reply', '小猪雨崽在思考哦，请稍等...');
-
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer Link_v0SpPeJUGHnfcScMDLdHd7HOPRs440zs3qszhBXesO'
-            },
-            body: JSON.stringify({ app_code: 'KoJA0clf', messages: [{ role: 'user', content: messageContent }] })
-        };
-        fetch('https://api.link-ai.chat/v1/chat/completions', options)
-            .then(response => response.json())
-            .then(response => {
-                const replyContent = response.choices[0].message.content;
-                const replyMsg = { role: 'reply', content: replyContent };
-                hideMessage(thinking);
-                msgList.push(replyMsg);
-                addMessage('reply', replyContent);
-                saveMessagesToLocalStorage();
-            })
-            .catch(error => {
-                console.error('Error sending message:', error);
-            });
-    }
-}
-
 function hideMessage(messageId) {
     const messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
     if (messageElement) {
         messageElement.style.display = 'none';
     }
 }
-// Display initial messages
-msgList.forEach(msg => {
-    addMessage(msg.role, msg.content);
-});
+function sendMessage() {
+    // 获取用户输入框的元素
+    const messageInput = document.getElementById('user-input');
+    // 获取并去除输入内容的前后空白字符
+    const messageContent = messageInput.value.trim();
+
+    // 判断用户输入是否为空
+    if (messageContent !== '') {
+        // 将用户消息添加到消息列表中
+        const newMsg = { role: 'user', content: messageContent };
+        msgList.push(newMsg);
+        newMsgList.push(newMsg);
+        // 将用户消息添加到聊天框中
+        addMessage('user', messageContent);
+        // 清空输入框
+        messageInput.value = '';
+        // 保存消息到本地存储
+        saveMessagesToLocalStorage();
+
+        // 添加 "思考中" 的消息占位符
+        const thinking = addMessage('assistant', '小猪雨崽在思考哦，请稍等...');
+
+        // 设置请求选项，用于向 API 发送消息并获取流式响应
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer Link_v0SpPeJUGHnfcScMDLdHd7HOPRs440zs3qszhBXesO'
+            },
+            body: JSON.stringify({
+                app_code: 'KoJA0clf',
+                // messages: [{ role: 'user', content: messageContent }],
+                messages: newMsgList.slice(-10),// 只发送最近10条消息
+                stream: true
+            })
+        };
+
+        // 通过 fetch 方法请求 API
+        fetch('https://api.link-ai.tech/v1/chat/completions', options)
+            .then(async response => {
+                // 检查响应是否正常
+                if (!response.ok) throw new Error('Network response was not ok');
+
+                const reader = response.body.getReader(); // 读取流式响应
+                const decoder = new TextDecoder('utf-8');
+                let result = '';
+
+                while (true) {
+                    // 从流中读取数据
+                    const { done, value } = await reader.read(); // 从流中读取一个数据块
+                    if (done) break; // 流结束，退出循环
+
+                    const chunk = decoder.decode(value, { stream: true }); // 解码数据块为字符串
+                    const lines = chunk.split('\n'); //将解码的字符串按行分割
+
+                    // 处理每一行响应数据
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const jsonString = line.replace('data: ', '');
+                            if (jsonString === '[DONE]') break; // 流结束标志
+
+                            try {
+                                // 解析 JSON 字符串
+                                const chunkMessage = JSON.parse(jsonString);
+
+                                if (chunkMessage.choices && chunkMessage.choices.length > 0 && chunkMessage.choices[0].delta) {
+                                    let content = chunkMessage.choices[0].delta.content;
+
+                                    // 格式化响应内容
+                                    content = content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                                    content = content.replace(/\n/g, '<br>');
+
+                                    if (content) {
+                                        // 累加响应内容
+                                        result += content;
+
+                                        // 更新显示正在思考的消息框
+                                        const replyMessageDiv = document.querySelector(`[data-message-id="${thinking}"]`);
+                                        if (replyMessageDiv) {
+                                            replyMessageDiv.innerHTML = `<img src="./asset/logo.png"> ${result}`;
+                                        }
+                                    }
+                                }
+                            } catch (error) {
+                                console.error('Error parsing JSON:', error);
+                            }
+                        }
+                    }
+                }
+
+                // 将最终响应消息存入消息列表
+                const replyMsg = { role: 'assistant', content: result };
+                msgList.push(replyMsg);
+                newMsgList.push(replyMsg);
+                saveMessagesToLocalStorage();
+            })
+            .catch(error => {
+                // 捕获错误并显示到消息框中
+                console.error('Error fetching message:', error);
+                hideMessage(thinking); // 隐藏 "思考中" 的消息占位符
+                addMessage('assistant', `抱歉，出错了: ${error.message}`);
+                msgList.push({ role: 'assistant', content: error.message });
+                saveMessagesToLocalStorage();
+            });
+    }
+}
+

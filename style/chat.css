@@ -146,18 +146,19 @@ body {
     position: absolute;
     top: 0px;
 }
-.message.me img {
+.message.user img {
     right: -50px;
 }
-.message.reply img {
+.message.assistant img {
     left: -50px;
 }
-.message.me {
+.message.user {
     float: right;
     background-color: white;
+    top: 0px;
 
 }
-.message.reply {
+.message.assistant {
     float: left;
     background: linear-gradient(to bottom left,rgba(77,112,255,0.3),rgba(77,255,249,0.3));
 }
