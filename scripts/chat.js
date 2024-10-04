@@ -25,19 +25,19 @@ window.onload = function() {
             addMessage(msg.role, msg.content);
         });
         addMessage('', '以上为历史消息');
-        // 如果是第一次发送消息，则显示当前日期和时间
-        const currentDate = new Date().toLocaleString();
-        addMessage('', currentDate);
-        addMessage('reply',
-            '<div style="font-size:20px;font-weight:bold;">您好！我是ProPatent知识产权助手，请问有什么可以帮助你的吗？</div>' +
-            '<div style="margin-top:4px;">我拥有强大的AI引擎，可以为进入中国、美国、欧洲、日本、英国和澳大利亚市场提供知识产权咨询。</div>' +
-            '<div style="margin-top:10px;">您可以问我：</div>' +
-            // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'如何在中国注册商标？\';sendMessage();"><li><u>如何在中国注册商标？</u></li></div>' +
-            // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'你能否解释一下中国的专利申请程序？\';sendMessage();"><li><u>你能否解释一下中国的专利申请程序？</u></li></div>' +
-            // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'你能否解释一下美国的版权程序？\';sendMessage();"><li><u>你能否解释一下美国的版权程序？</u></li></div>' +
-            // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'如何在美国申请发明专利？\';sendMessage();"><li><u>如何在美国申请发明专利？</u></li></div>' +
-            questionElements);
     }
+    // 如果是第一次发送消息，则显示当前日期和时间
+    const currentDate = new Date().toLocaleString();
+    addMessage('', currentDate);
+    addMessage('reply',
+        '<div style="font-size:20px;font-weight:bold;">您好！我是ProPatent知识产权助手，请问有什么可以帮助你的吗？</div>' +
+        '<div style="margin-top:4px;">我拥有强大的AI引擎，可以为进入中国、美国、欧洲、日本、英国和澳大利亚市场提供知识产权咨询。</div>' +
+        '<div style="margin-top:10px;">您可以问我：</div>' +
+        // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'如何在中国注册商标？\';sendMessage();"><li><u>如何在中国注册商标？</u></li></div>' +
+        // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'你能否解释一下中国的专利申请程序？\';sendMessage();"><li><u>你能否解释一下中国的专利申请程序？</u></li></div>' +
+        // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'你能否解释一下美国的版权程序？\';sendMessage();"><li><u>你能否解释一下美国的版权程序？</u></li></div>' +
+        // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'如何在美国申请发明专利？\';sendMessage();"><li><u>如何在美国申请发明专利？</u></li></div>' +
+        questionElements);
 };
 const questions = [
     '如何在中国注册商标？',
