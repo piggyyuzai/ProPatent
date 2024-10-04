@@ -109,7 +109,7 @@ function sendMessage() {
         saveMessagesToLocalStorage();
 
         // 添加 "思考中" 的消息占位符
-        const thinking = addMessage('assistant', '小猪雨崽在思考哦，请稍等...');
+        const thinking = addMessage('assistant', 'ProPatent知识产权助手正在思考，请稍等...');
 
         // 设置请求选项，用于向 API 发送消息并获取流式响应
         const options = {
