@@ -97,7 +97,7 @@ body {
     height:20px;
     margin:0 10px;
 }
-.message-item,#new-message {
+.message-item,#new-message,#setting-button {
     width:140px;
     height:20px;
     display:flex;
@@ -108,10 +108,68 @@ body {
     border-radius:10px;
     margin-bottom:10px;
     font-size:14px;
+    cursor:pointer;
 }
 #new-message {
     background-color:#4d70ff;
     color:white;
+}
+#setting-button {
+    position:absolute;bottom:0px;background-color:#dbe9fe;
+}
+
+/*设置窗口*/
+#overlay {
+    display:none;
+    width:100vw;
+    height:100vh;
+    position:absolute;
+    top:0;
+    left:0;
+    background-color:rgba(0,0,0,0.3);
+    z-index:999;
+}
+#setting-board {
+    display:none;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:70vw;
+    height:60vh;
+    max-width:800px;
+    max-height:600px;
+    border-radius:20px;
+    background-color: white;
+    box-shadow: 0px 0px 20px #4d70ff;
+    z-index:9999;
+    padding:20px;
+}
+.close{
+    position:absolute;
+    top:8px;
+    right:15px;
+    cursor:pointer;
+    font-size:30px;
+}
+.setting-title{
+    text-align:center;
+    color:#4d70ff;
+    font-weight:bold;
+    font-size:24px;
+    margin-bottom:10px;
+}
+.setting-button{
+    height:25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius:4px;
+    border: none;
+    color:#4d70ff;
+    background-color:#dbe9fe;;
+    margin:0 10px;
+    cursor:pointer;
 }
 
 /*聊天窗口*/

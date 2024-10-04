@@ -192,3 +192,28 @@ function sendMessage() {
     }
 }
 
+
+
+
+// 设置面板
+function settingBoard() {
+    const overlay = document.getElementById('overlay');
+    overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
+    const settingBoard = document.getElementById('setting-board');
+    settingBoard.style.display = settingBoard.style.display === 'block' ? 'none' : 'block';
+    //每次点击设置时更新历史记录长度
+    // 获取浏览器缓存中msgList的长度
+    const msgListLength = JSON.parse(localStorage.getItem('msgList')).length;
+    // 将msgList的长度直接放置在div中
+    document.getElementById('msgListLength').innerHTML = `目前有：${msgListLength} 条历史消息`;
+
+}
+function delHistory() {
+    var confirmed = confirm('确定要清除历史消息吗？');
+    if (confirmed) {
+        localStorage.removeItem('msgList');
+        localStorage.setItem('msgList', JSON.stringify([])); // 将msgList设置为空数组
+        location.reload(); // 刷新页面
+    }
+}
+
