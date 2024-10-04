@@ -35,7 +35,6 @@ document.addEventListener('click',function (event) {
 
 // 上传文件
 async function inputFile() {
-    var chatBox = document.getElementById("chat-box");
     var fileInput = document.getElementById("file-input");
     var extractContent = document.getElementById("extract-content");
     var checkbox = document.getElementById("checkbox");

@@ -5,15 +5,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <title>ProPatent——AI专利撰写助手</title>
     <link rel="icon" href="./asset/logo.png">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style/style.css">
     <script src="./scripts/app.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/docx-preview@0.1.15/dist/docx-preview.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.23.0/docxtemplater.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://unpkg.com/docx@8.1.0/build/index.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 
 </head>
@@ -26,7 +23,7 @@
     <div class="sidebar-title">AI专利撰写助手</div>
     <div style="margin-top:20px;">
         <div class="sidebar-menu active">专利撰写</div>
-        <div class="sidebar-menu">知产咨询</div>
+        <div class="sidebar-menu" onclick="location.href='./chat.html'">知产咨询</div>
         <div class="sidebar-menu">IPC查询</div>
         <div class="sidebar-menu">我的订单</div>
     </div>
@@ -39,7 +36,6 @@
         </div>
     </div>
     <div class="logout" onclick="">退出登录</div>
-
 </div>
 
 <!--流程栏-->
