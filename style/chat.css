@@ -26,10 +26,19 @@ body {
     font-size:16px;
 }
 .sidebar-menu {
-    height:40px;width:160px;border-radius:10px;color:black;font-weight:bold;font-size:16px;text-align:center;line-height:40px;cursor:pointer;
+    height:40px;
+    width:160px;
+    border-radius:10px;
+    color:black;
+    font-weight:bold;
+    font-size:16px;
+    text-align:center;
+    line-height:40px;
+    cursor:pointer;
 }
 .sidebar-menu.active {
-    background-color:#dbe9fe;color:#4d70ff;
+    background-color:#dbe9fe;
+    color:#4d70ff;
 }
 
 /*用户信息*/
@@ -41,10 +50,15 @@ body {
     padding:0 20px;
 }
 .user-avatar {
-    width:30px;height:30px;border-radius:5px;
+    width:30px;
+    height:30px;
+    border-radius:5px;
 }
 .user-info {
-    display:flex;flex-direction:column;justify-content:center;margin-left:5px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    margin-left:5px;
 }
 .user-name {
     color:#4d70ff;font-weight:bold;font-size:16px;
@@ -145,7 +159,7 @@ body {
 }
 .message.reply {
     float: left;
-    background: linear-gradient(to bottom left, rgba(77, 112, 255, 0.3), rgba(77, 255, 249, 0.3));
+    background: linear-gradient(to bottom left,rgba(77,112,255,0.3),rgba(77,255,249,0.3));
 }
 .message-divider {
     text-align: center;
@@ -159,6 +173,7 @@ body {
     margin-top:10px;
 }
 #user-input {
+    font-family:Arial,sans-serif;
     flex-grow:1;
     padding:10px;
     font-size:16px;

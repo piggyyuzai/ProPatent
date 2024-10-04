@@ -26,10 +26,19 @@ body {
     font-size:16px;
 }
 .sidebar-menu {
-    height:40px;width:160px;border-radius:10px;color:black;font-weight:bold;font-size:16px;text-align:center;line-height:40px;cursor:pointer;
+    height:40px;
+    width:160px;
+    border-radius:10px;
+    color:black;
+    font-weight:bold;
+    font-size:16px;
+    text-align:center;
+    line-height:40px;
+    cursor:pointer;
 }
 .sidebar-menu.active {
-    background-color:#dbe9fe;color:#4d70ff;
+    background-color:#dbe9fe;
+    color:#4d70ff;
 }
 
 /*用户信息*/
@@ -41,16 +50,23 @@ body {
     padding:0 20px;
 }
 .user-avatar {
-    width:30px;height:30px;border-radius:5px;
+    width:30px;height:30px;
+    border-radius:5px;
 }
 .user-info {
-    display:flex;flex-direction:column;justify-content:center;margin-left:5px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    margin-left:5px;
 }
 .user-name {
-    color:#4d70ff;font-weight:bold;font-size:16px;
+    color:#4d70ff;
+    font-weight:bold;
+    font-size:16px;
 }
 .user-vip {
-    color:#999999;font-size:10px;
+    color:#999999;
+    font-size:10px;
 }
 .logout {
     height:40px;
