@@ -57,6 +57,7 @@ function saveMessagesToLocalStorage() {
     localStorage.setItem('msgList', JSON.stringify(msgList));
 }
 
+// 向聊天框中添加消息
 function addMessage(role, content) {
     const chatContainer = document.getElementById('chat-box');
     const messageDiv = document.createElement('div');
@@ -85,11 +86,14 @@ function hideMessage(messageId) {
         messageElement.style.display = 'none';
     }
 }
+
+// 发送消息
 function sendMessage() {
     // 获取用户输入框的元素
     const messageInput = document.getElementById('user-input');
     // 获取并去除输入内容的前后空白字符
     const messageContent = messageInput.value.trim();
+    const chatBox = document.getElementById('chat-box');
 
     // 判断用户输入是否为空
     if (messageContent !== '') {
@@ -166,6 +170,8 @@ function sendMessage() {
                                         if (replyMessageDiv) {
                                             replyMessageDiv.innerHTML = `<img src="./asset/logo.png"> ${result}`;
                                         }
+                                        // 滚动到最新消息位置
+                                        chatBox.scrollTop = chatBox.scrollHeight;
                                     }
                                 }
                             } catch (error) {
