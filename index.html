@@ -69,15 +69,25 @@
         </div>
         <div class="step">
             <div class="step-number">3</div>
-            <div class="step-title">查询IPC分类号</div>
+            <div class="step-title">生成权利要求1</div>
         </div>
         <div class="step-line">
             <div class="step-description">
-                <div>根据该专利的权利要求以及发明内容，该专利的相关IPC分类号可以涵盖多个方面，具体如下：</div>
-                <div>F01N9/00 - 排气处理装置的电控。</div>
-                <div>这个分类号涵盖了排气处理系统的电气控制...</div>
+                <div>一种壳体定位装置，其特征在于，包括：</div>
+                <div>固定模，于所述固定模的顶端设置有用于将待加工壳体轴向的一侧夹持固定的第一U型体...</div>
             </div>
         </div>
+<!--        <div class="step">-->
+<!--            <div class="step-number">3</div>-->
+<!--            <div class="step-title">查询IPC分类号</div>-->
+<!--        </div>-->
+<!--        <div class="step-line">-->
+<!--            <div class="step-description">-->
+<!--                <div>根据该专利的权利要求以及发明内容，该专利的相关IPC分类号可以涵盖多个方面，具体如下：</div>-->
+<!--                <div>F01N9/00 - 排气处理装置的电控。</div>-->
+<!--                <div>这个分类号涵盖了排气处理系统的电气控制...</div>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="step">
             <div class="step-number">4</div>
             <div class="step-title">生成专利申请书</div>
@@ -114,14 +124,28 @@
             <div class="row" style="border-left:4px solid #4d70ff;padding-left:10px;">
                 请输入专利名称：
             </div>
-            <input type="text" id="file-title" placeholder="请输入专利名称" autocomplete="off">
-            <div class="row">上传技术交底书.docx文件</div>
+            <div class="row" style="margin-top:0px;">
+                <input type="text" id="file-title" placeholder="请输入专利名称" autocomplete="off">
+            </div>
+            <div id="file-input-title" class="row" style="border-left:4px solid #4d70ff;padding-left:10px;">
+                上传技术交底书.docx文件
+            </div>
             <div style="margin-top:8px;width:100%;text-align:left;">
                 <input type="file" id="file-input" accept=".pdf,.docx,.txt">
             </div>
-            <div class="row" style="font-size:10px;">
-                <li>如有错误只需重新上传文件即可</li>
+            <div class="row" style="font-size:10px;margin-top:5px;">
+                * 如有错误只需重新上传文件即可
             </div>
+            <div class="row" style="border-left:4px solid #4d70ff;padding-left:10px;">
+                上传技术交底书附图
+            </div>
+            <div style="margin-top:8px;width:100%;text-align:left;">
+                <input type="file" id="tech-image-upload" accept="image/*" multiple>
+            </div>
+            <div class="row" style="font-size:10px;margin-top:5px;">
+                * 注意：请单独上传附图，并且上传的附图序号需要与技术交底书中文本内容对应；为了提高生成质量，请在附图中标名部件或流程编号。
+            </div>
+            <div id="image-preview" style="margin-top:10px;display:flex;flex-wrap:wrap;"></div>
             <div class="row" id="user-agreement" style="margin-bottom:30px;">
                 <input type="checkbox" id="checkbox">
                 <label for="checkbox" style="margin-left:5px;">
@@ -136,31 +160,47 @@
         <!--提取内容-->
         <div id="extract-input">
             <div class="title">技术交底书标准化</div>
-            <div class="row" style="margin:0 auto 10px;font-weight:bold;">
+            <div class="row" style="margin-bottom:10px;font-weight:bold;">
                 <img src="./asset/check.png" style="width:30px;height:30px;margin-right:10px;">
                 核对修改交底书
             </div>
             <div id="extract-content" class="border-box" contenteditable='true'>
                 <div>正在读取中，请稍后...</div>
             </div>
+            <div id="tech-title" class="row" style="margin-bottom:10px;font-weight:bold;">
+                <img src="./asset/tech.png" style="width:30px;height:30px;margin-right:10px;">
+                请输入核心技术特征
+            </div>
+            <div id="tech-content" class="border-box" contenteditable='true' onclick="if(this.innerText==='请输入核心技术特征...')this.innerText='';">
+                <div>请输入核心技术特征...</div>
+            </div>
             <div class="button-container">
                 <button class="back-button" onclick="prevStep('extract-input','base-input')">上一步</button>
-                <button id="ipc-search-button" class="send-button" onclick="ipcSearch();">查询IPC分类号</button>
+                <button id="ipc-search-button" class="send-button" onclick="ipcSearch();">生成权利要求1</button>
             </div>
         </div>
 
         <!--IPC分类号查询-->
         <div id="ipc-search">
-            <div class="title">IPC分类号查询</div>
+            <div class="title">权利要求1</div>
+<!--            <div class="title">IPC分类号查询</div>-->
+            <div class="row" style="margin-bottom:10px;font-weight:bold;">
+                <img src="./asset/check.png" style="width:30px;height:30px;margin-right:10px;">
+                核对修改权利要求1
+            </div>
             <div id="ipc-content" class="border-box" contenteditable='true'>
-                <div>查询中，请稍后...</div>
+                <div>生成中，请稍后...</div>
             </div>
-            <div class="row">
-                <a href="./file/IPC分类号表单.pdf">查看IPC分类号表单</a>
-            </div>
+<!--            <div class="title">IPC分类号查询</div>-->
+<!--            <div id="ipc-content" class="border-box" contenteditable='true'>-->
+<!--                <div>查询中，请稍后...</div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <a href="./file/IPC分类号表单.pdf">查看IPC分类号表单</a>-->
+<!--            </div>-->
             <div class="button-container">
                 <button class="back-button" onclick="prevStep('ipc-search','extract-input')">上一步</button>
-                <button id="ipc-confirm-button" class="send-button" onclick="output();">确认并生成</button>
+                <button id="ipc-confirm-button" class="send-button" onclick="output();">确认</button>
             </div>
         </div>
 
@@ -196,9 +236,35 @@
 </div>
 
 <script>
-
-
-
+    // 附图上传预览
+    const input = document.getElementById('tech-image-upload');
+    const previewContainer = document.getElementById('image-preview');
+    let imageCounter = 1;  // 用于计数附图编号
+    input.addEventListener('change', function () {
+        const files = input.files;
+        // 遍历用户上传的文件
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imageDiv = document.createElement('div');
+                imageDiv.style.cssText = 'display:flex;flex-direction:column;align-items:center;margin:0 4px 4px;';
+                // 创建图片元素
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.cssText = 'max-height:50px;display:block;';
+                // 创建附图编号
+                const caption = document.createElement('div');
+                caption.innerText = `图${imageCounter++}`;
+                caption.style.fontSize = '12px';
+                // 将图片和编号添加到预览容器中
+                imageDiv.appendChild(img);
+                imageDiv.appendChild(caption);
+                previewContainer.appendChild(imageDiv);
+            };
+            reader.readAsDataURL(file);  // 读取图片数据
+        }
+    });
 </script>
 </body>
 </html>

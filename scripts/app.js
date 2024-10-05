@@ -33,14 +33,18 @@ document.addEventListener('click',function (event) {
 
 // 上传文件
 async function inputFile() {
-    var fileInput = document.getElementById("file-input");
-    var extractContent = document.getElementById("extract-content");
-    var checkbox = document.getElementById("checkbox");
-    var userAgreement = document.getElementById("user-agreement");
+    const fileInputTitile = document.getElementById("file-input-title");
+    const fileInput = document.getElementById("file-input");
+    const extractContent = document.getElementById("extract-content");
+    const checkbox = document.getElementById("checkbox");
+    const userAgreement = document.getElementById("user-agreement");
 
     if (!checkbox.checked || !fileInput.files.length) {
         if (!checkbox.checked) shake(userAgreement);
-        if (!fileInput.files.length) shake(fileInput);
+        if (!fileInput.files.length) {
+            shake(fileInputTitile);
+            shake(fileInput);
+        }
         return;
     }
 
