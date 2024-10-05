@@ -110,12 +110,17 @@ body {
     font-size:14px;
     cursor:pointer;
 }
+.message-item.active,.message-item:hover {
+    background-color:#dbe9fe;
+}
 #new-message {
     background-color:#4d70ff;
     color:white;
 }
 #setting-button {
-    position:absolute;bottom:0px;background-color:#dbe9fe;
+    position:absolute;
+    bottom:0px;
+    background-color:#dbe9fe;
 }
 
 /*设置窗口*/

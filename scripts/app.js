@@ -129,10 +129,27 @@ async function readDocx(file, extractContent) {
             // 将 DOCX 转换为 HTML 格式并显示在页面上
             mammoth.convertToHtml({ arrayBuffer: arrayBuffer }).then(function (result) {
                 let htmlContent = result.value;
-                // 设置图片格式
-                htmlContent = htmlContent.replace(/<img /g, '<img style="max-width:40%;max-height:40vh;display:block;margin:0 auto;" ');
+                // 设置图片格式     display:block;
+                htmlContent = htmlContent.replace(/<img /g, '<img style="display:none;max-width:40%;max-height:40vh;margin:0 auto;" ');
                 // 创建一个可编辑的 div，并将 HTML 内容插入其中
-                extractContent.innerHTML = htmlContent;
+                extractContent.innerHTML = htmlContent + '<br><br><div>附图：</div><br>';
+
+                // 获取附图和编号，添加到内容框中
+                const images = document.querySelectorAll('#image-preview img');
+                images.forEach((img, index) => {
+                    const imageElement = document.createElement('img');
+                    imageElement.src = img.src;
+                    imageElement.style.cssText = 'display:block;max-width:40%;max-height:40vh;margin:0 auto;';
+                    const caption = document.createElement('div');
+                    caption.innerText = `图${index + 1}`; // 编号从1开始
+                    caption.style.cssText = 'font-size:12px;text-align:center;'
+                    // 将附图及其编号插入到 extractContent 中
+                    extractContent.appendChild(imageElement);
+                    extractContent.appendChild(caption);
+                });
+                resolve(); // 解析 Promise
+
+
             }).catch(function (err) {
                 console.error("DOCX 转换为 HTML 出错: ", err);
                 reject(err);
@@ -217,19 +234,32 @@ async function aiChat(messageToSend,contentAreaId) {
 
 // IPC信息
 function ipcSearch() {
-    nextStep('extract-input', 'ipc-search');
-    var extractContent = document.getElementById("extract-content");
-    // 将 extractContent.innerText 与请求消息拼接
-    var messageToSend = extractContent.innerText + " 帮我查询这个专利技术交底书的IPC分类号和分类说明。";
-    aiChat(messageToSend, 'ipc-content');
+    const techTitle = document.getElementById("tech-title");
+    const techContent = document.getElementById("tech-content");
+    if (techContent.innerText === "" || techContent.innerText === "请输入核心技术特征...") {
+        shake(techTitle);
+        shake(techContent);
+    } else {
+        nextStep('extract-input', 'ipc-search');
+        const extractContent = document.getElementById("extract-content");
+        // 将 extractContent.innerText 与请求消息拼接
+        const messageToSend = extractContent.innerText + techContent.innerText + " 帮我生成权力要求 ";
+        // var messageToSend = extractContent.innerText + " 帮我查询这个专利技术交底书的IPC分类号和分类说明。";
+        aiChat(messageToSend, 'ipc-content');
+    }
+
 
 }
 
 
 function output() {
     nextStep('ipc-search','output');
-    var extractContent = document.getElementById("extract-content");
-    var messageToSend = extractContent.innerText + " 将我给你的这篇技术交底书重构，按照标题、技术领域、背景技术、发明内容、附图说明、具体实施方式几个部分详细说明。";
+    const extractContent = document.getElementById("extract-content");
+    const techContent = document.getElementById("tech-content");
+    const ipcContent = document.getElementById("ipc-content");
+    const messageToSend = extractContent.innerText + techContent.innerText + ipcContent.innerText +
+        " 将我给你的这些内容重构，按照说明书摘要、说明书附图、权力要求书、说明书（包括标题、技术领域、背景技术、发明内容、附图说明、具体实施方式、说明书附图）几个部分详细说明," +
+        "要求每个部分的内容尽可能地详细、专业";
     aiChat(messageToSend, 'output-content');
 }
 
