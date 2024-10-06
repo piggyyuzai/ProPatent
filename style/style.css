@@ -35,8 +35,9 @@ body {
     text-align:center;
     line-height:40px;
     cursor:pointer;
+    margin-bottom:4px;
 }
-.sidebar-menu.active {
+.sidebar-menu.active,.sidebar-menu:hover {
     background-color:#dbe9fe;
     color:#4d70ff;
 }

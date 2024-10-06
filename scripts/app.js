@@ -235,37 +235,51 @@ async function aiChat(messageToSend,contentAreaId) {
     }
 }
 
-
+// 检查内容并shake
+function checkAndShake(elementTitle, elementContent, message) {
+    if (elementContent.innerText.trim() === "" || elementContent.innerText.trim() === message) {
+        shake(elementTitle);
+        shake(elementContent);
+        return false;
+    }
+    return true;
+}
 // IPC信息
 function ipcSearch() {
     const techTitle = document.getElementById("tech-title");
     const techContent = document.getElementById("tech-content");
-    if (techContent.innerText === "" || techContent.innerText === "请输入核心技术特征...") {
-        shake(techTitle);
-        shake(techContent);
-    } else {
+    const extractTitle = document.getElementById("extract-title");
+    const extractContent = document.getElementById("extract-content");
+    let valid = true;
+    valid = checkAndShake(extractTitle, extractContent, "正在读取中，请稍后...") && valid;
+    valid = checkAndShake(techTitle, techContent, "请输入核心技术特征...") && valid;
+    if (valid) {
         nextStep('extract-input', 'ipc-search');
-        const extractContent = document.getElementById("extract-content");
         // 将 extractContent.innerText 与请求消息拼接
-        const messageToSend = extractContent.innerText + techContent.innerText + " 帮我生成权力要求 ";
-        // var messageToSend = extractContent.innerText + " 帮我查询这个专利技术交底书的IPC分类号和分类说明。";
+        const messageToSend = `${extractContent.innerText}${techContent.innerText} 帮我生成权力要求 `;
+        // var messageToSend = `${extractContent.innerText}${techContent.innerText} 帮我查询这个专利技术交底书的IPC分类号和分类说明。';
         aiChat(messageToSend, 'ipc-content');
     }
-
-
 }
 
-
+// 最终稿输出
 function output() {
-    nextStep('ipc-search','output');
     const extractContent = document.getElementById("extract-content");
     const techContent = document.getElementById("tech-content");
+    const ipcTitle = document.getElementById("ipc-title");
     const ipcContent = document.getElementById("ipc-content");
-    const messageToSend = extractContent.innerText + techContent.innerText + ipcContent.innerText +
-        " 将我给你的这些内容重构，按照说明书摘要、说明书附图、权力要求书、说明书（包括标题、技术领域、背景技术、发明内容、附图说明、具体实施方式、说明书附图）几个部分详细说明," +
-        "要求每个部分的内容尽可能地详细、专业";
-    aiChat(messageToSend, 'output-content');
+    let valid = true;
+    valid = checkAndShake(ipcTitle, ipcContent, "生成中，请稍后...") && valid;
+    if (valid) {
+        nextStep('ipc-search', 'output');
+        const messageToSend = `${extractContent.innerText}${techContent.innerText}${ipcContent.innerText}
+        将我给你的这些内容重构，按照说明书摘要、说明书附图、权力要求书、说明书（包括标题、技术领域、背景技术、发明内容、附图说明、具体实施方式、说明书附图）几个部分详细说明,
+        要求每个部分的内容尽可能地详细、专业`;
+        aiChat(messageToSend, 'output-content');
+    }
 }
+
+
 
 
 function copyToClipboard(areaId) {
