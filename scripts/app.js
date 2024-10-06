@@ -47,7 +47,6 @@ async function inputFile() {
         }
         return;
     }
-
     // 读取文件内容
     var content = "";
     const file = fileInput.files[0];
@@ -137,7 +136,6 @@ async function readDocx(file, extractContent) {
                 htmlContent = htmlContent.replace(/<img /g, '<img style="display:none;max-width:40%;max-height:40vh;margin:0 auto;" ');
                 // 创建一个可编辑的 div，并将 HTML 内容插入其中
                 extractContent.innerHTML = htmlContent + '<br><br><div>附图：</div><br>';
-
                 // 获取附图和编号，添加到内容框中
                 const images = document.querySelectorAll('#image-preview img');
                 images.forEach((img, index) => {
@@ -152,8 +150,6 @@ async function readDocx(file, extractContent) {
                     extractContent.appendChild(caption);
                 });
                 resolve(); // 解析 Promise
-
-
             }).catch(function (err) {
                 console.error("DOCX 转换为 HTML 出错: ", err);
                 reject(err);
@@ -281,7 +277,7 @@ function output() {
 
 
 
-
+// 复制内容到剪贴板
 function copyToClipboard(areaId) {
     var copyContent = document.getElementById(areaId);
     if (navigator.clipboard) {
@@ -298,7 +294,7 @@ function copyToClipboard(areaId) {
     }
 }
 
-
+// 用户协议
 function userAgreement() {
     alert('ProPatent用户协议\n' +
         '\n' +

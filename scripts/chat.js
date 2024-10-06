@@ -18,6 +18,10 @@ let msgList = [];
 msgList.forEach(msg => {
     addMessage(msg.role, msg.content);
 });
+// 在发送消息时保存消息列表到本地存储
+function saveMessagesToLocalStorage() {
+    localStorage.setItem('msgList', JSON.stringify(msgList));
+}
 // 在页面加载时从本地存储加载历史消息
 window.onload = function() {
     const savedMsgList = JSON.parse(localStorage.getItem('msgList'));
@@ -34,12 +38,7 @@ window.onload = function() {
     addMessage('assistant',
         '<div style="font-size:20px;font-weight:bold;">您好！我是ProPatent知识产权助手，请问有什么可以帮助你的吗？</div>' +
         '<div style="margin-top:4px;">我拥有强大的AI引擎，可以为进入中国、美国、欧洲、日本、英国和澳大利亚市场提供知识产权咨询。</div>' +
-        '<div style="margin-top:10px;">您可以问我：</div>' +
-        // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'如何在中国注册商标？\';sendMessage();"><li><u>如何在中国注册商标？</u></li></div>' +
-        // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'你能否解释一下中国的专利申请程序？\';sendMessage();"><li><u>你能否解释一下中国的专利申请程序？</u></li></div>' +
-        // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'你能否解释一下美国的版权程序？\';sendMessage();"><li><u>你能否解释一下美国的版权程序？</u></li></div>' +
-        // '<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById(\'user-input\').value=\'如何在美国申请发明专利？\';sendMessage();"><li><u>如何在美国申请发明专利？</u></li></div>' +
-        questionElements);
+        '<div style="margin-top:10px;">您可以问我：</div>' + questionElements);
     newMsgList = [];
 };
 const questions = [
@@ -52,10 +51,6 @@ const questionElements = questions.map(question =>
     `<div style="cursor:pointer;margin-top:4px;" onclick="document.getElementById('user-input').value='${question}';sendMessage();"><li><u>${question}</u></li></div>`
 ).join('');
 
-// 在发送消息时保存消息列表到本地存储
-function saveMessagesToLocalStorage() {
-    localStorage.setItem('msgList', JSON.stringify(msgList));
-}
 
 // 向聊天框中添加消息
 function addMessage(role, content) {
@@ -79,39 +74,27 @@ function addMessage(role, content) {
         return messageId;
     }
 }
-
+// 隐藏指定消息
 function hideMessage(messageId) {
     const messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
     if (messageElement) {
         messageElement.style.display = 'none';
     }
 }
-
 // 发送消息
 function sendMessage() {
-    // 获取用户输入框的元素
     const messageInput = document.getElementById('user-input');
-    // 获取并去除输入内容的前后空白字符
     const messageContent = messageInput.value.trim();
     const chatBox = document.getElementById('chat-box');
 
-    // 判断用户输入是否为空
     if (messageContent !== '') {
-        // 将用户消息添加到消息列表中
         const newMsg = { role: 'user', content: messageContent };
         msgList.push(newMsg);
         newMsgList.push(newMsg);
-        // 将用户消息添加到聊天框中
         addMessage('user', messageContent);
-        // 清空输入框
         messageInput.value = '';
-        // 保存消息到本地存储
         saveMessagesToLocalStorage();
-
-        // 添加 "思考中" 的消息占位符
         const thinking = addMessage('assistant', 'ProPatent知识产权助手正在思考，请稍等...');
-
-        // 设置请求选项，用于向 API 发送消息并获取流式响应
         const options = {
             method: 'POST',
             headers: {
@@ -125,8 +108,6 @@ function sendMessage() {
                 stream: true
             })
         };
-
-        // 通过 fetch 方法请求 API
         fetch('https://api.link-ai.tech/v1/chat/completions', options)
             .then(async response => {
                 // 检查响应是否正常
@@ -164,7 +145,6 @@ function sendMessage() {
                                     if (content) {
                                         // 累加响应内容
                                         result += content;
-
                                         // 更新显示正在思考的消息框
                                         const replyMessageDiv = document.querySelector(`[data-message-id="${thinking}"]`);
                                         if (replyMessageDiv) {
