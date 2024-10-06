@@ -162,7 +162,7 @@
                 <div>请输入核心技术特征...</div>
             </div>
             <div class="button-container">
-                <button class="back-button" onclick="prevStep('extract-input','base-input')">上一步</button>
+                <button class="back-button" onclick="nextStep('extract-input','base-input')">上一步</button>
                 <button id="ipc-search-button" class="send-button" onclick="ipcSearch();">生成权利要求1</button>
             </div>
         </div>
@@ -181,7 +181,7 @@
 <!--                <a href="./file/IPC分类号表单.pdf">查看IPC分类号表单</a>-->
 <!--            </div>-->
             <div class="button-container">
-                <button class="back-button" onclick="prevStep('ipc-search','extract-input')">上一步</button>
+                <button class="back-button" onclick="nextStep('ipc-search','extract-input')">上一步</button>
                 <button id="ipc-confirm-button" class="send-button" onclick="output();">确认</button>
             </div>
         </div>
@@ -196,7 +196,7 @@
                 <div>生成中，请稍后...</div>
             </div>
             <div class="button-container">
-                <button class="back-button" onclick="prevStep('output','ipc-search')">上一步</button>
+                <button class="back-button" onclick="nextStep('output','ipc-search')">上一步</button>
                 <button id="output-button" class="send-button" onclick="copyToClipboard('output-content')">一键复制</button>
             </div>
         </div>

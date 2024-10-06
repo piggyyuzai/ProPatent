@@ -1,13 +1,7 @@
 // 切换步骤
 function nextStep(currentId, nextId) {
-    // 隐藏当前步骤
     document.getElementById(currentId).style.display = 'none';
-    // 显示下一步骤
     document.getElementById(nextId).style.display = 'flex';
-}
-function prevStep(currentId, prevId) {
-    document.getElementById(currentId).style.display = 'none';
-    document.getElementById(prevId).style.display = 'flex';
 }
 // 晃动提醒
 function shake(element) {
