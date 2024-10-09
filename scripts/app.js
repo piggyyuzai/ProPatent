@@ -25,15 +25,14 @@ function nextStep(currentId, nextId, step1, step2) {
 // 晃动提醒
 function shake(element) {
     element.classList.add("shake"); // 添加晃动类
-    setTimeout(() => {
-        element.classList.remove("shake"); // 移除晃动类
-    }, 900); // 900毫秒后移除
+    setTimeout(() => element.classList.remove("shake"), 900); // 900毫秒后移除
 }
 // 切换微信客服码显示
 function toggleCodeBox() {
-    var codeBox = document.getElementById('code-box');
+    const codeBox = document.getElementById('code-box');
     codeBox.style.display = codeBox.style.display=== 'flex' ? 'none' : 'flex';
 }
+// 点击页面其他地方关闭微信客服码显示
 document.addEventListener('click',function (event) {
     var codeBox = document.getElementById('code-box');
     var serviceBox = document.getElementById('service-box');
@@ -46,7 +45,7 @@ document.addEventListener('click',function (event) {
 
 // 上传文件
 async function inputFile() {
-    const fileInputTitile = document.getElementById("file-input-title");
+    const fileInputTitle = document.getElementById("file-input-title");
     const fileInput = document.getElementById("file-input");
     const extractContent = document.getElementById("extract-content");
     const checkbox = document.getElementById("checkbox");
@@ -55,24 +54,23 @@ async function inputFile() {
     if (!checkbox.checked || !fileInput.files.length) {
         if (!checkbox.checked) shake(userAgreement);
         if (!fileInput.files.length) {
-            shake(fileInputTitile);
+            shake(fileInputTitle);
             shake(fileInput);
         }
         return;
     }
     // 读取文件内容
-    var content = "";
     const file = fileInput.files[0];
     const fileHandlers = {
         "application/pdf": async () => {
-            content = await readPdf(file);
+            const content = await readPdf(file);
             displayTextContent(content, extractContent);
         },
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document": async () => {
             await readDocx(file, extractContent);
         },
         "text/plain": async () => {
-            content = await readTxt(file);
+            const content = await readTxt(file);
             displayTextContent(content, extractContent);
         }
     };
@@ -89,7 +87,7 @@ async function inputFile() {
 // 显示提取的纯文本内容
 function displayTextContent(textContent, extractContent) {
     extractContent.innerHTML = ""; // 清空提取内容
-    if (textContent.trim() !== "") {
+    if (textContent.trim()) {
         var fileDiv = document.createElement("div");
         fileDiv.textContent = textContent;
         extractContent.appendChild(fileDiv);
@@ -119,10 +117,8 @@ async function readPdf(file) {
 // 读取txt文件内容
 async function readTxt(file) {
     return new Promise((resolve) => {
-        var reader = new FileReader();
-        reader.onload = function (event) {
-            resolve(event.target.result);
-        };
+        const reader = new FileReader();
+        reader.onload = (event) => resolve(event.target.result);
         reader.readAsText(file);
     });
 }
@@ -201,9 +197,7 @@ async function aiChat(messageToSend,contentAreaId) {
             body: body
         });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error('Network response was not ok');
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder("utf-8");

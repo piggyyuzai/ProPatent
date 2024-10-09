@@ -11,7 +11,7 @@
 
     <script src="./scripts/mammoth.browser.min.js"></script>
     <script src="./scripts/docx-preview.min.js"></script>
-    <script src="./scripts/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="./scripts/docxtemplater.min.js"></script>
 </head>
 <body>
@@ -23,7 +23,7 @@
     <div class="sidebar-title">AI专利撰写助手</div>
     <div style="margin-top:20px;">
         <div class="sidebar-menu active">专利撰写</div>
-        <div class="sidebar-menu">历史记录</div>
+<!--        <div class="sidebar-menu">历史记录</div>-->
         <div class="sidebar-menu" onclick="location.href='./chat.html'">知产咨询</div>
         <div class="sidebar-menu">IPC查询</div>
         <div class="sidebar-menu">我的订单</div>
@@ -101,6 +101,10 @@
         <div class="step-line" style="display:none;">
             <div class="step-description">
             </div>
+        </div>
+        <div class="history">
+            <img src="./asset/history.png" class="history-icon">
+            历史记录
         </div>
 
     </div>
