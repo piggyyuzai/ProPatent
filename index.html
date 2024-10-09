@@ -23,6 +23,7 @@
     <div class="sidebar-title">AI专利撰写助手</div>
     <div style="margin-top:20px;">
         <div class="sidebar-menu active">专利撰写</div>
+        <div class="sidebar-menu">历史记录</div>
         <div class="sidebar-menu" onclick="location.href='./chat.html'">知产咨询</div>
         <div class="sidebar-menu">IPC查询</div>
         <div class="sidebar-menu">我的订单</div>
@@ -56,7 +57,7 @@
         </div>
         <div class="step">
             <div class="step-number">2</div>
-            <div class="step-title">统一交底书标准</div>
+            <div class="step-title">技术交底书标准化</div>
         </div>
         <div class="step-line">
             <div class="step-description">
@@ -91,6 +92,14 @@
                 <div>一种壳体定位装置及壳体成形方法</div>
                 <div style="font-weight:bold;">技术领域</div>
                 <div>本发明涉及壳体加工技术领域，具体而言，涉及一种壳体定位装置及壳体成形方法...</div>
+            </div>
+        </div>
+        <div class="step" style="display:none;">
+            <div class="step-number">4</div>
+            <div class="step-title">生成专利申请书</div>
+        </div>
+        <div class="step-line" style="display:none;">
+            <div class="step-description">
             </div>
         </div>
 
@@ -162,7 +171,7 @@
                 <div>请输入核心技术特征...</div>
             </div>
             <div class="button-container">
-                <button class="back-button" onclick="nextStep('extract-input','base-input')">上一步</button>
+                <button class="back-button" onclick="nextStep('extract-input','base-input', 5, 1)">上一步</button>
                 <button id="ipc-search-button" class="send-button" onclick="ipcSearch();">生成权利要求1</button>
             </div>
         </div>
@@ -181,7 +190,7 @@
 <!--                <a href="./file/IPC分类号表单.pdf">查看IPC分类号表单</a>-->
 <!--            </div>-->
             <div class="button-container">
-                <button class="back-button" onclick="nextStep('ipc-search','extract-input')">上一步</button>
+                <button class="back-button" onclick="nextStep('ipc-search','extract-input', 5, 2)">上一步</button>
                 <button id="ipc-confirm-button" class="send-button" onclick="output();">确认</button>
             </div>
         </div>
@@ -196,7 +205,7 @@
                 <div>生成中，请稍后...</div>
             </div>
             <div class="button-container">
-                <button class="back-button" onclick="nextStep('output','ipc-search')">上一步</button>
+                <button class="back-button" onclick="nextStep('output','ipc-search', 5, 3)">上一步</button>
                 <button id="output-button" class="send-button" onclick="copyToClipboard('output-content')">一键复制</button>
             </div>
         </div>

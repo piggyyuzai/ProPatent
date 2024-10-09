@@ -1,7 +1,26 @@
 // 切换步骤
-function nextStep(currentId, nextId) {
+function nextStep(currentId, nextId, step1, step2) {
     document.getElementById(currentId).style.display = 'none';
     document.getElementById(nextId).style.display = 'flex';
+
+
+    const stepNumber1 = document.querySelectorAll('.step-number')[step1-1];
+    stepNumber1.textContent = '✓';
+    stepNumber1.style.backgroundColor = 'gray';
+    const stepLine1 = document.querySelectorAll('.step-line')[step1-1];
+    stepLine1.style.borderLeft = '2px dashed #a6a6a6';
+    const stepDescription1 = document.querySelectorAll('.step-description')[step1-1];
+    stepDescription1.style.background = 'radial-gradient(#d5d5d5 60%, #a6a6a6 100%)';
+    stepDescription1.style.border = '1px solid #a6a6a6';
+
+    const stepNumber2 = document.querySelectorAll('.step-number')[step2-1];
+    stepNumber2.textContent = step2;
+    stepNumber2.style.backgroundColor = '#4d70ff';
+    const stepLine2 = document.querySelectorAll('.step-line')[step2-1];
+    stepLine2.style.borderLeft = '2px dashed #4d70ff';
+    const stepDescription2 = document.querySelectorAll('.step-description')[step2-1];
+    stepDescription2.style.background = 'radial-gradient(#dfebff 60%,#8cb7ff 100%)';
+    stepDescription2.style.border = '1px solid #4d70ff';
 }
 // 晃动提醒
 function shake(element) {
@@ -59,7 +78,7 @@ async function inputFile() {
     };
     const handler = fileHandlers[file.type];
     if (handler) {
-        nextStep('base-input', 'extract-input');
+        nextStep('base-input', 'extract-input', 1, 5);
         await handler();
     } else {
         alert("不支持的文件格式！");
@@ -244,7 +263,7 @@ function ipcSearch() {
     valid = checkAndShake(extractTitle, extractContent, "正在读取中，请稍后...") && valid;
     valid = checkAndShake(techTitle, techContent, "请输入核心技术特征...") && valid;
     if (valid) {
-        nextStep('extract-input', 'ipc-search');
+        nextStep('extract-input', 'ipc-search', 2, 5);
         // 将 extractContent.innerText 与请求消息拼接
         const messageToSend = `${extractContent.innerText}${techContent.innerText} 帮我生成权力要求 `;
         // var messageToSend = `${extractContent.innerText}${techContent.innerText} 帮我查询这个专利技术交底书的IPC分类号和分类说明。';
@@ -261,7 +280,7 @@ function output() {
     let valid = true;
     valid = checkAndShake(ipcTitle, ipcContent, "生成中，请稍后...") && valid;
     if (valid) {
-        nextStep('ipc-search', 'output');
+        nextStep('ipc-search', 'output', 3, 5);
         const messageToSend = `${extractContent.innerText}${techContent.innerText}${ipcContent.innerText}
         将我给你的这些内容重构，按照说明书摘要、说明书附图、权力要求书、说明书（包括标题、技术领域、背景技术、发明内容、附图说明、具体实施方式、说明书附图）几个部分详细说明,
         要求每个部分的内容尽可能地详细、专业`;
