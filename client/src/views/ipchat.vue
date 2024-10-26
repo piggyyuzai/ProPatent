@@ -103,7 +103,7 @@ const questionElements = questions.map(question =>
 
 // 向聊天框中添加消息
 const userAvatar = 'https://piggyyuzai.github.io/KleeWeb/img/welcome.gif';
-const assistantAvatar = '/favicon.ico';
+const assistantAvatar = './logo.png';
 function addMessage(role, content) {
     const chatContainer = document.getElementById('chat-box');
     const messageDiv = document.createElement('div');
