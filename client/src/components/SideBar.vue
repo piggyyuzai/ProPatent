@@ -1,0 +1,125 @@
+<template>
+    <div class="sidebar">
+        <img src="../assets/logo.png" class="sidebar-logo" alt="logo">
+        <div class="sidebar-title">ProPatent</div>
+        <div class="sidebar-title">AI专利撰写助手</div>
+        <div style="margin-top: 20px;">
+            <div v-for="(item, index) in pathList" :key="index" class="sidebar-menu" @click="navigate(item.path)" :class="{ active: item.path === activePath }" >
+                <div>{{item.name}}</div>
+            </div>
+        </div>
+        <!-- 用户信息区 -->
+        <div class="user">
+            <img src="../assets/user.png" class="user-avatar">
+            <div class="user-info">
+                <div class="user-name">用户名</div>
+                <div class="user-vip">会员到期时间：2024-12-31</div>
+            </div>
+        </div>
+        <div class="logout" @click="logout">退出登录</div>
+    </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+const router = useRouter();
+const route = useRoute();
+
+const activePath = ref(route.path); // active选项元素路径
+const pathList = [
+    {name:'专利撰写',path:'/',},
+    {name:'文书查看',path:'',},
+    {name:'知产咨询',path:'/ipchat',},
+    {name:'IPC查询',path:'/ipcsearch',},
+    {name:'我的订单', path:'',},
+    {name:'test', path:'/test',},
+    {name:'login', path:'/login',},
+];
+function navigate(path) {
+    if (path) {
+        activePath.value = path; // 更新active的选项
+        router.push(path);
+    }
+}
+</script>
+
+<style scoped>
+/*菜单栏*/
+.sidebar {
+    flex-shrink:0;
+    width:180px;
+    background-color:#ffffff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px 10px;
+}
+.sidebar-logo {
+    width:30px;
+    height:30px;
+    margin-bottom:10px;
+}
+.sidebar-title {
+    color:#4d70ff;
+    font-weight:bold;
+    font-size:16px;
+}
+.sidebar-menu {
+    height:40px;
+    width:160px;
+    border-radius:10px;
+    color:black;
+    font-weight:bold;
+    font-size:16px;
+    text-align:center;
+    line-height:40px;
+    cursor:pointer;
+    margin-bottom:4px;
+}
+.sidebar-menu.active,.sidebar-menu:hover {
+    background-color:#dbe9fe;
+    color:#4d70ff;
+}
+
+/*用户信息*/
+.user {
+    position:absolute;
+    bottom:60px;
+    display:flex;
+    align-items:center;
+    padding:0 20px;
+}
+.user-avatar {
+    width:30px;height:30px;
+    border-radius:5px;
+}
+.user-info {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    margin-left:5px;
+}
+.user-name {
+    color:#4d70ff;
+    font-weight:bold;
+    font-size:16px;
+}
+.user-vip {
+    color:#999999;
+    font-size:10px;
+}
+.logout {
+    height:40px;
+    width:160px;
+    border-radius:10px;
+    background-color: #eeeeee;
+    color:black;
+    font-size:16px;
+    text-align:center;
+    line-height:40px;
+    cursor:pointer;
+    position:absolute;
+    bottom:10px;
+}
+</style>
