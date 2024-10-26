@@ -1,1 +1,0 @@
-import{S as e}from"./SideBar-DNzExm-g.js";import{_ as a,c,a as s,o}from"./index-fJz_hnS5.js";const r={id:"ipcsearch"},t={__name:"ipcsearch",setup(_){return(p,i)=>(o(),c("div",r,[s(e)]))}},m=a(t,[["__scopeId","data-v-ad338448"]]);export{m as default};
