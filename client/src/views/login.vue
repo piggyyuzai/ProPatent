@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <h1>登录</h1>
+        <h2 style="color:#4d70ff;">登录ProPatent</h2>
         <form @submit.prevent="handleSubmit">
             <div class="input-group" id="username-input">
                 <div class="input-label">用户名</div>
@@ -16,7 +16,7 @@
                 <div class="input-label">验证码</div>
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <input type="text" id="captcha" v-model="captcha" placeholder="请输入验证码" style="width:250px;"/>
-                    <canvas ref="captchaCanvas" width="100" height="36" @click="drawCaptcha" style="cursor:pointer;margin-left:10px;border:2px solid #dbe9fe;border-radius:6px;"></canvas>
+                    <canvas ref="captchaCanvas" width="100" height="36" @click="drawCaptcha"></canvas>
                 </div>
                 <p v-if="errors.captcha" class="error">{{ errors.captcha }}</p>
             </div>
@@ -147,7 +147,7 @@ function shake(event) {
     padding: 40px;
     border: none;
     border-radius: 8px;
-    box-shadow: 0 0 20px #4d70ff;
+    box-shadow: 0 0 50px #dbe9fe;
     text-align: center;
     background-color: #fff;
 }
@@ -169,7 +169,13 @@ input {
     padding: 10px;
     font-size: 14px;
     border: 2px solid #dbe9fe;
-    border-radius: 4px;
+    border-radius: 6px;
+}
+canvas {
+    cursor:pointer;
+    margin-left:10px;
+    border:2px solid #dbe9fe;
+    border-radius:6px;
 }
 button {
     display:block;

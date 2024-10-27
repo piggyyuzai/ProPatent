@@ -26,7 +26,6 @@ import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
 const route = useRoute();
 
-const activePath = ref(route.path); // active选项元素路径
 const pathList = [
     {name:'专利撰写',path:'/',},
     {name:'文书查看',path:'/documentviewer',},
@@ -36,6 +35,7 @@ const pathList = [
     {name:'test', path:'/test',},
     {name:'login', path:'/login',},
 ];
+const activePath = ref(route.path); // active选项元素路径
 function navigate(path) {
     if (path) {
         activePath.value = path; // 更新active的选项

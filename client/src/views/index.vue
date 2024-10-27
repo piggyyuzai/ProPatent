@@ -452,8 +452,8 @@ function toggleCodeBox() {
 }
 // 点击页面其他地方关闭微信客服码显示
 document.addEventListener('click',function (event) {
-    var codeBox = document.getElementById('code-box');
-    var serviceBox = document.getElementById('service-box');
+    const codeBox = document.getElementById('code-box');
+    const serviceBox = document.getElementById('service-box');
     if (codeBox.style.display === 'flex' && !serviceBox.contains(event.target) && !codeBox.contains(event.target)) {
         codeBox.style.display = 'none';
     }
