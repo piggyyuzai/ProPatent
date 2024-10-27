@@ -139,6 +139,7 @@ onMounted(() => {
 }
 
 .content {
+    min-width: 600px;
     flex: 1; /* 右侧内容区域 */
     padding: 40px;
     overflow-y: auto; /* 添加滚动条 */
