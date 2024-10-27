@@ -9,7 +9,7 @@ const router = new createRouter({
             component: () => import("../views/index.vue"),
             meta: { title: "ProPatent——AI专利撰写助手" },
         },
-        ...["ipchat", "ipcsearch"].map(route => ({
+        ...["ipchat", "ipcsearch","myorders","documentviewer"].map(route => ({
             path: `/${route}`,
             component: () => import(`../views/${route}.vue`),
             meta: { title: "ProPatent——AI专利撰写助手" },

@@ -361,6 +361,7 @@ function delHistory() {
     flex-direction:column;
     background:linear-gradient(to bottom left,#e3eeff,#ffffff);
     padding:20px;
+    min-width:400px;
 }
 .chat-container small {
     color:gray;

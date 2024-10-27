@@ -29,10 +29,10 @@ const route = useRoute();
 const activePath = ref(route.path); // active选项元素路径
 const pathList = [
     {name:'专利撰写',path:'/',},
-    {name:'文书查看',path:'',},
+    {name:'文书查看',path:'/documentviewer',},
     {name:'知产咨询',path:'/ipchat',},
     {name:'IPC查询',path:'/ipcsearch',},
-    {name:'我的订单', path:'',},
+    {name:'我的订单', path:'/myorders',},
     {name:'test', path:'/test',},
     {name:'login', path:'/login',},
 ];

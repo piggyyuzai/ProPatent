@@ -1,0 +1,1 @@
+import{S as t}from"./SideBar-DbBEx-eS.js";import{_ as o,c as r,a,f as s,o as c}from"./index-j4CpE0NY.js";const d={id:"documentviewer"},_={__name:"documentviewer",setup(n){return(i,e)=>(c(),r("div",d,[a(t),e[0]||(e[0]=s(" 开发中... "))]))}},f=o(_,[["__scopeId","data-v-d7af9f6b"]]);export{f as default};

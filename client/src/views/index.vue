@@ -572,6 +572,7 @@ function userAgreement() {
     background:linear-gradient(to bottom left,#e3eeff,#ffffff);
     padding:0 20px;
     overflow-y:auto;
+    min-width:400px;
 }
 #base-input,#extract-input,#ipc-search,#output {
     display:flex;
@@ -657,9 +658,9 @@ function userAgreement() {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    position: absolute;
-    right: 10px;
-    bottom: 100px;
+    position: fixed;
+    right: 20px;
+    bottom: 80px;
     width: 60px;
     height: 60px;
     border-radius: 10px;
