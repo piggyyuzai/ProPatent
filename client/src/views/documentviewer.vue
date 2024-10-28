@@ -175,7 +175,7 @@ table {
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 5px 8px;
     text-align: center;
 }
 
