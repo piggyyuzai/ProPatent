@@ -5,6 +5,12 @@
         <!--历史文档内容-->
         <div class="content">
             <div class="title">文书查看</div>
+            <!--搜索栏-->
+            <div class="search-bar">
+                <img src="../assets/search.png"/>
+                <input type="text" v-model="searchQuery" placeholder="搜索标题或内容" @input="currentPage = 1" />
+            </div>
+            <!--表格-->
             <table>
                 <thead>
                 <tr>
@@ -16,8 +22,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-if="documents.length === 0">
-                    <td colspan="5" style="text-align: center;">暂无历史数据</td>
+                <tr v-if="filteredDocuments.length === 0">
+                    <td colspan="5" style="text-align: center;">暂无匹配数据</td>
                 </tr>
                 <tr v-for="(document, index) in paginatedDocuments" :key="document.id">
                     <td>{{ (currentPage - 1) * pageSize + index + 1 }}</td>
@@ -121,17 +127,31 @@ const hideTooltip = () => {
     tooltipIndex.value = null;
 };
 
-// 换页
-const totalPages = computed(() => Math.ceil(documents.value.length / pageSize));
+// 搜索过滤文档
+const searchQuery = ref('');
+const filteredDocuments = computed(() => {
+    if (!searchQuery.value) {
+        return documents.value;
+    }
+    const query = searchQuery.value.toLowerCase();
+    return documents.value.filter(doc =>
+        doc.title.toLowerCase().includes(query) || doc.contentPreview.toLowerCase().includes(query)
+    );
+});
+
+// 分页逻辑
+const totalPages = computed(() => Math.ceil(filteredDocuments.value.length / pageSize));
 const paginatedDocuments = computed(() => {
     const start = (currentPage.value - 1) * pageSize;
-    return documents.value.slice(start, start + pageSize);
+    return filteredDocuments.value.slice(start, start + pageSize);
 });
+// 换页
 const goToFirstPage = () => { currentPage.value = 1; };
 const goToLastPage = () => { currentPage.value = totalPages.value; };
 const goToPreviousPage = () => { if (currentPage.value > 1) { currentPage.value--; } };
 const goToNextPage = () => { if (currentPage.value < totalPages.value) { currentPage.value++; } };
 const goToPage = (page) => { currentPage.value = page; };
+// 计算邻近页
 const nearbyPages = computed(() => {
     const pages = [];
     const start = Math.max(1, currentPage.value - 2);
@@ -139,7 +159,6 @@ const nearbyPages = computed(() => {
     for (let i = start; i <= end; i++) { pages.push(i); }
     return pages;
 });
-
 </script>
 
 <style scoped>
@@ -165,7 +184,26 @@ const nearbyPages = computed(() => {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
-    text-align: center; /* 标题水平居中 */
+    text-align: center;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.search-bar img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.search-bar input {
+    padding: 6px 10px;
+    border: 2px solid #4d70ff;
+    border-radius: 6px;
+    width: 250px;
 }
 
 table {
@@ -173,13 +211,11 @@ table {
     border-collapse: collapse;
     table-layout: fixed; /* 固定布局 */
 }
-
 th, td {
     padding: 5px 8px;
     text-align: center;
     border-bottom: 1px solid #c8d9f1;
 }
-
 th {
     background-color: #dbe9fe;
     color: #4d70ff;
@@ -219,7 +255,7 @@ th {
     padding: 5px 10px;
     cursor: pointer;
 }
-
+/*换页*/
 .pagination {
     margin-top: 20px;
     display: flex;
