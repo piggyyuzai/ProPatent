@@ -205,7 +205,6 @@ const nearbyPages = computed(() => {
     border: 2px solid #4d70ff;
     border-radius: 6px;
     width: 200px;
-    height: 16px;
     margin-right: 14px;
 }
 .search-bar input[type="date"] {
