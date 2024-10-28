@@ -2,31 +2,70 @@
     <div class="login-container">
         <h2 style="color:#4d70ff;">登录ProPatent</h2>
         <form @submit.prevent="handleSubmit">
-            <div class="input-group" id="username-input">
-                <div class="input-label">用户名</div>
-                <input type="text" id="username" v-model="username" placeholder="请输入用户名"/>
-                <p v-if="errors.username" class="error">{{ errors.username }}</p>
+            <div class="input-group" id="usertel-input">
+                <div class="input-label">手机号</div>
+                <input type="text" id="usertel" v-model="usertel" placeholder="请输入手机号"/>
+                <p v-if="errors.usertel" class="error">{{ errors.usertel }}</p>
             </div>
-            <div class="input-group" id="password-input">
-                <div class="input-label">密码</div>
-                <input type="password" id="password" v-model="password" placeholder="请输入密码"/>
-                <p v-if="errors.password" class="error">{{ errors.password }}</p>
+            <div class="input-group" id="telecaptcha-input">
+                <div class="input-label">短信验证码</div>
+                <div style="display:flex;align-items:center;justify-content:center;">
+                    <input type="text" id="telecaptcha" v-model="telecaptcha" placeholder="请输入短信验证码" style="width:250px;"/>
+                    <button class="resend-btn" @click="resendTelecaptcha" :disabled="isCounting">
+                        {{ isCounting ? `请等待${countdown}秒` : (countdown === 0 ? '再次发送' : '发送验证码') }}
+                    </button>
+                </div>
+                <p v-if="errors.telecaptcha" class="error">{{ errors.telecaptcha }}</p>
             </div>
             <div class="input-group" id="captcha-input">
                 <div class="input-label">验证码</div>
-                <div style="display: flex; align-items: center; justify-content: center;">
+                <div style="display:flex;align-items:center;justify-content:center;">
                     <input type="text" id="captcha" v-model="captcha" placeholder="请输入验证码" style="width:250px;"/>
                     <canvas ref="captchaCanvas" width="100" height="36" @click="drawCaptcha"></canvas>
                 </div>
                 <p v-if="errors.captcha" class="error">{{ errors.captcha }}</p>
             </div>
-            <button type="submit">登录</button>
+            <button class="login-btn" type="submit">登录</button>
         </form>
     </div>
 </template>
 
 <script setup>
 import { reactive, ref, onMounted } from 'vue';
+
+
+// 在组件挂载时绘制验证码
+onMounted(() => {
+    initializeCountdown();
+    drawCaptcha();
+});
+
+
+
+// 表单状态
+const usertel = ref('');
+const telecaptcha = ref('');
+const captcha = ref('');
+const correctCaptcha = ref(''); // 用于存储正确的验证码
+const errors = reactive({usertel: '',telecaptcha: '',captcha: '',});
+// 表单提交处理逻辑
+const handleSubmit = () => {
+    errors.usertel = '';errors.telecaptcha = '';errors.captcha = '';
+    if (!usertel.value) {errors.usertel = '* 手机号不能为空';shake('usertel-input');}
+    else if (!/^(1[3-9])\d{9}$/.test(usertel.value)) {errors.usertel = '* 手机号格式不正确';shake('usertel-input');}
+    if (!telecaptcha.value) {errors.telecaptcha = '* 短信验证码不能为空';shake('telecaptcha-input');}
+    if (!captcha.value) {errors.captcha = '* 验证码不能为空';shake('captcha-input');}
+    else if (captcha.value !== correctCaptcha.value) {errors.captcha = '* 验证码错误';shake('captcha-input');}
+    if (!errors.usertel && !errors.telecaptcha && !errors.captcha) {
+        console.log('用户名:', usertel.value);
+        console.log('短信验证码:', telecaptcha.value);
+        console.log('验证码:', captcha.value);
+        // alert('登录成功！');
+        window.history.back();
+    }
+};
+
+
 
 
 // 随机颜色
@@ -101,33 +140,50 @@ const drawCaptcha = () => {
         ctx.restore(); // 恢复到之前的状态
     }
 };
-// 验证码状态
-const correctCaptcha = ref(''); // 用于存储正确的验证码
-// 在组件挂载时绘制验证码
-onMounted(() => {
-    drawCaptcha();
-});
 
-// 表单状态
-const username = ref('');
-const password = ref('');
-const captcha = ref('');
-const errors = reactive({username: '',password: '',captcha: '',});
-// 表单提交处理逻辑
-const handleSubmit = () => {
-    errors.username = '';errors.password = '';errors.captcha = '';
-    if (!username.value) {errors.username = '* 用户名不能为空';shake('username-input');}
-    if (!password.value) {errors.password = '* 密码不能为空';shake('password-input');}
-    if (!captcha.value) {errors.captcha = '* 验证码不能为空';shake('captcha-input');}
-        else if (captcha.value !== correctCaptcha.value) {errors.captcha = '* 验证码错误';shake('captcha-input');}
-    if (!errors.username && !errors.password && !errors.captcha) {
-        console.log('用户名:', username.value);
-        console.log('密码:', password.value);
-        console.log('验证码:', captcha.value);
-        // alert('登录成功！');
-        window.history.back();
+
+
+
+// 倒计时相关状态
+const countdown = ref(60);
+const isCounting = ref(false);
+let timer = null;
+// 初始化倒计时
+const initializeCountdown = () => {
+    const endTime = localStorage.getItem('telecaptchaEndTime');
+    if (endTime) {
+        const remainingTime = Math.max(0, Math.floor(parseInt(endTime) - Math.floor(Date.now() / 1000)));
+        if (remainingTime > 0) {
+            isCounting.value = true;
+            countdown.value = remainingTime;
+            startCountdown();
+        }
     }
 };
+// 启动倒计时
+const startCountdown = () => {
+    timer = setInterval(() => {
+        countdown.value = Math.max(0, Math.floor(countdown.value) - 1); // 确保不为负数
+        if (countdown.value <= 0) {
+            clearInterval(timer);
+            isCounting.value = false;
+            localStorage.removeItem('telecaptchaEndTime');
+        }
+    }, 1000);
+};
+// 重新发送短信验证码
+const resendTelecaptcha = () => {
+    if (isCounting.value) return;
+    // 获取当前时间并加上60秒，存入浏览器缓存
+    const endTime = Math.floor(Date.now() / 1000) + 60;
+    localStorage.setItem('telecaptchaEndTime', endTime);
+    countdown.value = 60;
+    isCounting.value = true;
+    startCountdown();
+}
+
+
+
 function shake(event) {
     const element = document.getElementById(event);
     element.classList.add('shake');
@@ -172,13 +228,34 @@ input {
     border: 2px solid #dbe9fe;
     border-radius: 6px;
 }
+.resend-btn {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100px;
+    height:36px;
+    margin-left:10px;
+    color:#4d70ff;
+    font-size:14px;
+    font-weight:bold;
+    background-color:#dbe9fe;
+    cursor:pointer;
+    border:2px solid #dbe9fe;
+    border-radius:6px;
+}
+.resend-btn:disabled {
+    background-color:#f5f5f5;
+    color:#999;
+    cursor:not-allowed;
+}
+
 canvas {
     cursor:pointer;
     margin-left:10px;
     border:2px solid #dbe9fe;
     border-radius:6px;
 }
-button {
+.login-btn {
     display:block;
     text-align:center;
     margin:20px auto;
@@ -191,7 +268,7 @@ button {
     border:none;
     cursor:pointer;
 }
-button:hover {
+.login-btn:hover {
 }
 .error {
     color: red;
