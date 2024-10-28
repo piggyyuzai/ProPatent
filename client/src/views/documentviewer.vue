@@ -174,14 +174,15 @@ table {
 }
 
 th, td {
-    border: 1px solid #ddd;
     padding: 5px 8px;
     text-align: center;
+    border-bottom: 1px solid #c8d9f1;
 }
 
 th {
     background-color: #dbe9fe;
     color: #4d70ff;
+    border-top: 1px solid #c8d9f1;
 }
 
 /* 内容预览样式 */
