@@ -201,13 +201,14 @@ const nearbyPages = computed(() => {
 }
 .search-bar input {
     font-size: 14px;
-    padding: 6px 10px;
+    padding: 4px 8px;
     border: 2px solid #4d70ff;
     border-radius: 6px;
     width: 200px;
     margin-right: 14px;
 }
 .search-bar input[type="date"] {
+    font-size: 12px;
     width: 100px;
     margin: 0 8px;
 }
