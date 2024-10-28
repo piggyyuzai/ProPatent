@@ -197,7 +197,7 @@ const nearbyPages = computed(() => {
 .search-bar img {
     width: 20px;
     height: 20px;
-    margin: 0 8px;
+    margin:0 4px 0 10px;
 }
 .search-bar input {
     font-size: 14px;
@@ -206,10 +206,11 @@ const nearbyPages = computed(() => {
     border-radius: 6px;
     width: 200px;
     height: 16px;
-    margin: 0 10px;
+    margin-right: 14px;
 }
 .search-bar input[type="date"] {
     width: 100px;
+    margin: 0 8px;
 }
 
 table {
