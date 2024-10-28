@@ -7,7 +7,7 @@
             <div class="title">文书查看</div>
             <!--搜索栏-->
             <div class="search-bar">
-                <img src="../assets/search.png"/>
+                <img src="../assets/search.png" alt="搜索图标" />
                 <input type="text" v-model="searchQuery" placeholder="搜索标题或内容" @input="currentPage = 1" />
                 日期
                 <input type="date" v-model="startDate" @input="currentPage = 1" />~
@@ -54,7 +54,7 @@
             <div class="pagination">
                 <button @click="goToFirstPage" :disabled="currentPage === 1">最前页</button>
                 <button @click="goToPreviousPage" :disabled="currentPage === 1">上一页</button>
-                <span>第 {{ currentPage }} 页 / {{ totalPages }} 页</span>
+                <span>第 {{ currentPage }} / {{ totalPages }} 页</span>
                 <button @click="goToNextPage" :disabled="currentPage === totalPages">下一页</button>
                 <button @click="goToLastPage" :disabled="currentPage === totalPages">最后页</button>
                 <span>快速跳转: </span>
@@ -67,7 +67,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import SideBar from '../components/Sidebar.vue';
-import { content } from '../mockData.js';
+import { contentList } from '../mockData.js';
 
 
 onMounted(() => {
@@ -84,7 +84,7 @@ const fetchDocuments = async () => {
         // const response = await fetch('你的API地址');
         // const data = await response.json();
         // documents.value = data;
-        documents.value = content;
+        documents.value = contentList;
         // 按创建时间降序排序
         documents.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     } catch (error) {

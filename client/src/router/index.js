@@ -15,14 +15,14 @@ const router = new createRouter({
             meta: { title: "ProPatent——AI专利撰写助手" },
         })),
         {
-            path: "/test",
-            component: () => import("../views/test.vue"),
-            meta: { title: "测试页" },
-        },
-        {
             path: "/login",
             component: () => import("../views/login.vue"),
             meta: { title: "登录" },
+        },
+        {
+            path: "/test",
+            component: () => import("../views/test.vue"),
+            meta: { title: "测试页" },
         },
     ]
 })

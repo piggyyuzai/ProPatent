@@ -124,7 +124,8 @@ const handleSubmit = () => {
         console.log('用户名:', username.value);
         console.log('密码:', password.value);
         console.log('验证码:', captcha.value);
-        alert('登录成功！');
+        // alert('登录成功！');
+        window.history.back();
     }
 };
 function shake(event) {

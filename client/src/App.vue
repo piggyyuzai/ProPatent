@@ -5,6 +5,9 @@
 <script setup>
 
 </script>
+<script>
+export const userid = Math.floor(Math.random() * 3) + 1;
+</script>
 
 <style>
 body {

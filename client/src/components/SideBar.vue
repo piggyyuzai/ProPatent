@@ -9,14 +9,15 @@
             </div>
         </div>
         <!-- 用户信息区 -->
-        <div class="user">
-            <img src="../assets/user.png" class="user-avatar">
+        <div v-if="isLoggedIn" class="user">
+            <img :src="user.avatar" class="user-avatar" alt="用户头像">
             <div class="user-info">
-                <div class="user-name">用户名</div>
-                <div class="user-vip">会员到期时间：2024-12-31</div>
+                <div class="user-name">{{ user.phone }}</div>
+                <div class="user-vip">会员到期时间：{{ user.membershipExpiry }}</div>
             </div>
         </div>
-        <div class="logout" @click="logout">退出登录</div>
+        <div v-if="isLoggedIn" class="logout" @click="logout">退出登录</div>
+        <div v-else class="login" @click="login;navigate('/login')">登录</div>
     </div>
 </template>
 
@@ -26,14 +27,26 @@ import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
 const route = useRoute();
 
+// 用户信息
+import { userList } from '../mockData.js';
+import { userid } from '../App.vue';
+const user = ref(userList.find(u => u.id === userid));
+
+const isLoggedIn = ref(true); // 初始设置为已登录状态
+function logout() {
+    isLoggedIn.value = false; // 设置为未登录状态
+}
+
+function login() {
+    isLoggedIn.value = true; // 设置为已登录状态
+    // 你可以在这里添加其他登录逻辑
+}
 const pathList = [
     {name:'专利撰写',path:'/',},
     {name:'文书查看',path:'/documentviewer',},
     {name:'知产咨询',path:'/ipchat',},
     {name:'IPC查询',path:'/ipcsearch',},
     {name:'我的订单', path:'/myorders',},
-    {name:'test', path:'/test',},
-    {name:'login', path:'/login',},
 ];
 const activePath = ref(route.path); // active选项元素路径
 function navigate(path) {
@@ -109,7 +122,8 @@ function navigate(path) {
     color:#999999;
     font-size:10px;
 }
-.logout {
+.logout,.login {
+    font-weight:bold;
     height:40px;
     width:160px;
     border-radius:10px;
@@ -121,5 +135,9 @@ function navigate(path) {
     cursor:pointer;
     position:absolute;
     bottom:10px;
+}
+.login {
+    color:#4d70ff;
+    background-color:#dbe9fe;
 }
 </style>
