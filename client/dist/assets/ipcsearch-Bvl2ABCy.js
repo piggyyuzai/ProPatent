@@ -1,0 +1,1 @@
+import{S as a}from"./SideBar-CIsGZ4J_.js";import{_ as s,c as t,a as o,f as r,o as c}from"./index-HXVw7XU4.js";const _={id:"ipcsearch"},p={__name:"ipcsearch",setup(i){return(d,e)=>(c(),t("div",_,[o(a),e[0]||(e[0]=r(" 开发中... "))]))}},m=s(p,[["__scopeId","data-v-222bef0a"]]);export{m as default};
