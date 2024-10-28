@@ -1,1 +1,0 @@
-import{S as o}from"./SideBar-D7UAcHnw.js";import{_ as r,c as s,a as t,f as a,o as c}from"./index-ya-NLozL.js";const _={id:"myorders"},d={__name:"myorders",setup(m){return(n,e)=>(c(),s("div",_,[t(o),e[0]||(e[0]=a(" 开发中... "))]))}},i=r(d,[["__scopeId","data-v-32cbbcfe"]]);export{i as default};

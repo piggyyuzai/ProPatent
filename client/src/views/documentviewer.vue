@@ -9,7 +9,8 @@
             <div class="search-bar">
                 <img src="../assets/search.png"/>
                 <input type="text" v-model="searchQuery" placeholder="搜索标题或内容" @input="currentPage = 1" />
-                <input type="date" v-model="startDate" @input="currentPage = 1" />
+                日期
+                <input type="date" v-model="startDate" @input="currentPage = 1" />~
                 <input type="date" v-model="endDate" @input="currentPage = 1" />
             </div>
             <!--表格-->
@@ -191,6 +192,7 @@ const nearbyPages = computed(() => {
     justify-content: flex-start;
     margin-bottom: 10px;
     width: 100%;
+    font-size: 14px;
 }
 .search-bar img {
     width: 20px;
@@ -198,13 +200,13 @@ const nearbyPages = computed(() => {
     margin: 0 8px;
 }
 .search-bar input {
-    font-size: 12px;
+    font-size: 14px;
     padding: 6px 10px;
     border: 2px solid #4d70ff;
     border-radius: 6px;
-    width: 250px;
+    width: 200px;
     height: 16px;
-    margin-right: 10px;
+    margin: 0 10px;
 }
 .search-bar input[type="date"] {
     width: 100px;
