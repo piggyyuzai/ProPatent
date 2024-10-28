@@ -198,6 +198,7 @@ const nearbyPages = computed(() => {
     margin: 0 8px;
 }
 .search-bar input {
+    font-size: 12px;
     padding: 6px 10px;
     border: 2px solid #4d70ff;
     border-radius: 6px;
