@@ -32,11 +32,10 @@ import { userList } from '../mockData.js';
 import { userid } from '../App.vue';
 const user = ref(userList.find(u => u.id === userid));
 
-const isLoggedIn = ref(true); // 初始设置为已登录状态
+const isLoggedIn = ref(window.isLoggedIn);
 function logout() {
     isLoggedIn.value = false; // 设置为未登录状态
 }
-
 function login() {
     isLoggedIn.value = true; // 设置为已登录状态
     // 你可以在这里添加其他登录逻辑

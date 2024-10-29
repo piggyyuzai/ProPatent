@@ -61,6 +61,7 @@ const handleSubmit = () => {
         console.log('短信验证码:', telecaptcha.value);
         console.log('验证码:', captcha.value);
         // alert('登录成功！');
+        window.isLoggedIn = true;
         window.history.back();
     }
 };

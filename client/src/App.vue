@@ -7,6 +7,7 @@
 </script>
 <script>
 export const userid = Math.floor(Math.random() * 3) + 1;
+window.isLoggedIn = false;
 </script>
 
 <style>
