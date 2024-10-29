@@ -491,7 +491,6 @@ function userAgreement() {
 <style scoped>
 #ProPatent {
     display:flex;
-    font-family:Arial,sans-serif;
     margin:0;
     height:100vh;
 }

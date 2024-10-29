@@ -12,7 +12,7 @@
                 <div style="display:flex;align-items:center;justify-content:center;">
                     <input type="text" id="telecaptcha" v-model="telecaptcha" placeholder="请输入短信验证码" style="width:250px;"/>
                     <button class="resend-btn" @click="resendTelecaptcha" :disabled="isCounting">
-                        {{ isCounting ? `请等待${countdown}秒` : (countdown === 0 ? '再次发送' : '发送验证码') }}
+                        {{ isCounting ? `剩余${countdown}秒` : (countdown === 0 ? '再次发送' : '发送验证码') }}
                     </button>
                 </div>
                 <p v-if="errors.telecaptcha" class="error">{{ errors.telecaptcha }}</p>

@@ -163,7 +163,6 @@ const nearbyPages = computed(() => {
 <style scoped>
 #documentviewer {
     display: flex;
-    font-family: Arial, sans-serif;
     margin: 0;
     height: 100vh;
 }

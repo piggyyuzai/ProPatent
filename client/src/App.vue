@@ -11,6 +11,7 @@ export const userid = Math.floor(Math.random() * 3) + 1;
 
 <style>
 body {
+    font-family: Arial, sans-serif;
     margin:0;
     padding:0;
     overflow-y: auto;

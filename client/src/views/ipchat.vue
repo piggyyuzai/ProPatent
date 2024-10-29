@@ -252,7 +252,6 @@ function delHistory() {
 <style scoped>
 #ipchat {
     display:flex;
-    font-family:Arial,sans-serif;
     margin:0;
     height:100vh;
 }

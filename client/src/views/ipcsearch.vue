@@ -15,7 +15,6 @@ import SideBar from '../components/Sidebar.vue';
 <style scoped>
 #ipcsearch {
     display:flex;
-    font-family:Arial,sans-serif;
     margin:0;
     height:100vh;
 }
