@@ -55,7 +55,6 @@ const highlightMatch = (title, term) => {
 .tree-node {
     cursor: pointer;
     padding: 5px;
-    border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 }
 ul {

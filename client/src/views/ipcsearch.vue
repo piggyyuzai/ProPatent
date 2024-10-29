@@ -4,7 +4,7 @@
         <SideBar/>
         <!-- 树形目录 -->
         <div class="tree-container-wrapper">
-            <div class="title">IPC分类目录</div>
+            <div class="title">IPC分类查询</div>
             <input
                 type="text"
                 v-model="searchTerm"
@@ -86,7 +86,7 @@ const expandedTreeData = computed(() => {
     padding: 6px 10px;
     width: 200px;
     border-radius: 6px;
-    border: 2px solid #dbe9fe;
+    border: 2px solid #4d70ff;
 }
 .tree-container {
     min-width: 400px;
