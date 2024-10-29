@@ -233,7 +233,7 @@ input {
     align-items:center;
     justify-content:center;
     width:100px;
-    height:36px;
+    height:40px;
     margin-left:10px;
     color:#4d70ff;
     font-size:14px;
