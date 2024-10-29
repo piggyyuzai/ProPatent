@@ -7,16 +7,6 @@
                 <input type="text" id="usertel" v-model="usertel" placeholder="请输入手机号"/>
                 <p v-if="errors.usertel" class="error">{{ errors.usertel }}</p>
             </div>
-            <div class="input-group" id="telecaptcha-input">
-                <div class="input-label">短信验证码</div>
-                <div style="display:flex;align-items:center;justify-content:center;">
-                    <input type="text" id="telecaptcha" v-model="telecaptcha" placeholder="请输入短信验证码" style="width:150px;"/>
-                    <button class="resend-btn" @click="resendTelecaptcha" :disabled="isCounting">
-                        {{ isCounting ? `剩余${countdown}秒` : (countdown === 0 ? '再次发送' : '发送验证码') }}
-                    </button>
-                </div>
-                <p v-if="errors.telecaptcha" class="error">{{ errors.telecaptcha }}</p>
-            </div>
             <div class="input-group" id="captcha-input">
                 <div class="input-label">验证码</div>
                 <div style="display:flex;align-items:center;justify-content:center;">
@@ -24,6 +14,16 @@
                     <canvas ref="captchaCanvas" width="100" height="36" @click="drawCaptcha"></canvas>
                 </div>
                 <p v-if="errors.captcha" class="error">{{ errors.captcha }}</p>
+            </div>
+            <div class="input-group" id="telecaptcha-input">
+                <div class="input-label">短信验证码</div>
+                <div style="display:flex;align-items:center;justify-content:center;">
+                    <input type="text" id="telecaptcha" v-model="telecaptcha" placeholder="请输入短信验证码" style="width:150px;"/>
+                    <button class="resend-btn" @click.stop.prevent="resendTelecaptcha" :disabled="isCounting">
+                        {{ isCounting ? `剩余${countdown}秒` : (countdown === 0 ? '再次发送' : '发送验证码') }}
+                    </button>
+                </div>
+                <p v-if="errors.telecaptcha" class="error">{{ errors.telecaptcha }}</p>
             </div>
             <div class="input-group" id="agreement-input" style="font-size:14px;">
                 <input type="checkbox" v-model="agreeTerms" style="width:14px;"/>
@@ -183,6 +183,9 @@ const startCountdown = () => {
 };
 // 重新发送短信验证码
 const resendTelecaptcha = () => {
+    // 须先输入验证码识别真人
+    if (!captcha.value) { alert('请先输入验证码'); return; }
+    else if (captcha.value !== correctCaptcha.value) { alert('验证码错误');return;}
     if (isCounting.value) return;
     // 获取当前时间并加上60秒，存入浏览器缓存
     const endTime = Math.floor(Date.now() / 1000) + 60;
