@@ -10,7 +10,7 @@
             <div class="input-group" id="telecaptcha-input">
                 <div class="input-label">短信验证码</div>
                 <div style="display:flex;align-items:center;justify-content:center;">
-                    <input type="text" id="telecaptcha" v-model="telecaptcha" placeholder="请输入短信验证码" style="width:250px;"/>
+                    <input type="text" id="telecaptcha" v-model="telecaptcha" placeholder="请输入短信验证码" style="width:150px;"/>
                     <button class="resend-btn" @click="resendTelecaptcha" :disabled="isCounting">
                         {{ isCounting ? `剩余${countdown}秒` : (countdown === 0 ? '再次发送' : '发送验证码') }}
                     </button>
@@ -20,7 +20,7 @@
             <div class="input-group" id="captcha-input">
                 <div class="input-label">验证码</div>
                 <div style="display:flex;align-items:center;justify-content:center;">
-                    <input type="text" id="captcha" v-model="captcha" placeholder="请输入验证码" style="width:250px;"/>
+                    <input type="text" id="captcha" v-model="captcha" placeholder="请输入验证码" style="width:150px;"/>
                     <canvas ref="captchaCanvas" width="100" height="36" @click="drawCaptcha"></canvas>
                 </div>
                 <p v-if="errors.captcha" class="error">{{ errors.captcha }}</p>
@@ -200,7 +200,7 @@ function shake(event) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: 300px;
     padding: 40px;
     border: none;
     border-radius: 8px;
@@ -222,7 +222,7 @@ function shake(event) {
     font-weight: bold;
 }
 input {
-    width: 360px;
+    width: 260px;
     padding: 10px;
     font-size: 14px;
     border: 2px solid #dbe9fe;
