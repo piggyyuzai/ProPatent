@@ -44,7 +44,7 @@ const expandedTreeData = computed(() => {
             const isMatch = node.title.includes(searchTerm.value);
             const hasMatchingChildren = children.some((child) => child.isMatch || child.hasMatchingChildren);
 
-            // Only expand path if there’s a match or matching children
+            // 只展开匹配的结点
             return {
                 ...node,
                 children,

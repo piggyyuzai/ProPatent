@@ -24,7 +24,7 @@ const props = defineProps({
 
 const isOpen = ref(props.node.isOpen);
 
-// Watch the `isOpen` prop to automatically open matching nodes
+// 监听 `isOpen` 属性，以自动打开匹配的节点
 watch(
     () => props.node.isOpen,
     (newVal) => {
