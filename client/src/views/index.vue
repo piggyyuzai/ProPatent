@@ -147,7 +147,7 @@ const steps = ref([
     { number: 1, title: '输入技术交底书', description: `<div style="font-weight:bold;">技术领域：</div><div>本课题研究“多段带鳍薄壁曲线壳体分段成形工艺方法”以及成形过程中使用的装置“多段曲线薄壁壳体自定心装焊组合装置”、“带鳍薄壁曲线壳体的鳍板预焊装置及工艺”的设计...</div>` },
     { number: 2, title: '技术交底书标准化', description: `<div>1. 现有技术及存在的技术问题...</div><div>2. 本申请的技术方案以及达到的技术效果...</div><div>3. 具体实施例...</div><div>4. 其它（比如流程图、结构图的描述）...</div>` },
     { number: 3, title: '生成权利要求1', description: `<div>一种壳体定位装置，其特征在于，包括：</div><div>固定模，于所述固定模的顶端设置有用于将待加工壳体轴向的一侧夹持固定的第一U型体...</div>` },
-    { number: 4, title: '生成专利申请书', description: `<div style="font-weight:bold;">说明书摘要</div><div>本发明公开一种壳体定位装置及壳体成形方法。其中，该装置包括：固定模和移动模...</div><div style="font-weight:bold;">权利要求书</div><div>1. 一种壳体定位装置，其特征在于，包括：</div><div>固定模，于所述固定模的顶端设置有用于将待加工壳体轴向的一侧夹持固定的第一U型体...</div><div style="font-weight:bold;">说明书</div><div>一种壳体定位装置及壳体成形方法</div><div style="font-weight:bold;">技术领域</div><div>本发明涉及壳体加工技术领域，具体而言，涉及一种壳体定位装置及壳体成形方法...</div>` },
+    { number: 4, title: '生成专利申请书', description: `<div style="font-weight:bold;">说明书摘要</div><div>本发明公开一种壳体定位装置及壳体成形方法。其中，该装置包括：固定模和移动模...</div><div style="font-weight:bold;">权利要求书</div><div>一种壳体定位装置，其特征在于，包括：</div><div>固定模，于所述固定模的顶端设置有用于将待加工壳体轴向的一侧夹持固定的第一U型体...</div><div style="font-weight:bold;">说明书</div><div>一种壳体定位装置及壳体成形方法</div><div style="font-weight:bold;">技术领域</div><div>本发明涉及壳体加工技术领域，具体而言，涉及一种壳体定位装置及壳体成形方法...</div>` },
     // { number: 5, title: '', description: `<div></div>` },
 ]);
 
@@ -552,7 +552,7 @@ function userAgreement() {
     width:220px;
     border-left:2px dashed #4d70ff;
     margin:0;
-    padding:2px 0 16px 8px;
+    padding:2px 0 2px 8px;
     font-size:10px;
 }
 .step-description {

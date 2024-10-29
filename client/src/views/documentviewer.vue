@@ -20,8 +20,8 @@
                     <th style="width: 8%;">序号</th>
                     <th style="width: 14%;">时间</th>
                     <th style="width: 18%;">标题</th>
-                    <th style="width: 40%;">内容预览</th>
-                    <th style="width: 20%;">操作</th>
+                    <th style="width: 45%;">内容预览</th>
+                    <th style="width: 15%;">操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,7 +46,7 @@
                     <td>
                         <button class="view-btn" @click="viewDocument(document.id)">查看</button>
                         <button class="delete-btn" @click="deleteDocument(document.id)">删除</button>
-                        <button class="export-btn" @click="exportDocument(document.id)">导出</button>
+<!--                        <button class="export-btn" @click="exportDocument(document.id)">导出</button>-->
                     </td>
                 </tr>
                 </tbody>
@@ -73,12 +73,10 @@ import { contentList } from '../mockData.js';
 onMounted(() => {
     fetchDocuments();
 });
+
+
+
 const documents = ref([]);
-const currentPage = ref(1);
-const pageSize = 5;
-
-
-
 const fetchDocuments = async () => {
     try {
         // const response = await fetch('你的API地址');
@@ -113,6 +111,9 @@ const hideTooltip = () => {
     tooltipIndex.value = null;
 };
 
+
+
+
 // 搜索过滤文档
 const searchQuery = ref('');
 const startDate = ref('');
@@ -138,7 +139,12 @@ const filteredDocuments = computed(() => {
     return result;
 });
 
+
+
+
 // 分页逻辑
+const currentPage = ref(1);
+const pageSize = 5;
 const totalPages = computed(() => Math.ceil(filteredDocuments.value.length / pageSize));
 const paginatedDocuments = computed(() => {
     const start = (currentPage.value - 1) * pageSize;
@@ -165,16 +171,17 @@ const nearbyPages = computed(() => {
     display: flex;
     margin: 0;
     height: 100vh;
+    justify-content: space-between;
 }
 
 .content {
     min-width: 600px;
-    flex: 1; /* 右侧内容区域 */
+    flex: 1;
     padding: 40px;
-    overflow-y: auto; /* 添加滚动条 */
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    align-items: center; /* 垂直居中 */
+    align-items: center;
 }
 
 .title {
@@ -226,6 +233,9 @@ th {
     background-color: #dbe9fe;
     color: #4d70ff;
     border-top: 1px solid #c8d9f1;
+}
+tr:hover {
+    background-color: #f2f2f2;
 }
 
 /* 内容预览样式 */

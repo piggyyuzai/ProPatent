@@ -25,6 +25,13 @@
                 </div>
                 <p v-if="errors.captcha" class="error">{{ errors.captcha }}</p>
             </div>
+            <div class="input-group" id="agreement-input" style="font-size:14px;">
+                <input type="checkbox" v-model="agreeTerms" style="width:14px;"/>
+                我已同意
+                <router-link to="" style="color:#4d70ff;font-weight:bold;cursor:pointer;">使用协议</router-link>
+                和
+                <router-link to="" style="color:#4d70ff;font-weight:bold;cursor:pointer;">隐私政策</router-link>
+            </div>
             <button class="login-btn" type="submit">登录</button>
         </form>
     </div>
@@ -48,14 +55,16 @@ const telecaptcha = ref('');
 const captcha = ref('');
 const correctCaptcha = ref(''); // 用于存储正确的验证码
 const errors = reactive({usertel: '',telecaptcha: '',captcha: '',});
+const agreeTerms = ref(false); // 同意协议和隐私政策复选框
 // 表单提交处理逻辑
 const handleSubmit = () => {
     errors.usertel = '';errors.telecaptcha = '';errors.captcha = '';
     if (!usertel.value) {errors.usertel = '* 手机号不能为空';shake('usertel-input');}
-    else if (!/^(1[3-9])\d{9}$/.test(usertel.value)) {errors.usertel = '* 手机号格式不正确';shake('usertel-input');}
+        else if (!/^(1[3-9])\d{9}$/.test(usertel.value)) {errors.usertel = '* 手机号格式不正确';shake('usertel-input');}
     if (!telecaptcha.value) {errors.telecaptcha = '* 短信验证码不能为空';shake('telecaptcha-input');}
     if (!captcha.value) {errors.captcha = '* 验证码不能为空';shake('captcha-input');}
-    else if (captcha.value !== correctCaptcha.value) {errors.captcha = '* 验证码错误';shake('captcha-input');}
+        else if (captcha.value !== correctCaptcha.value) {errors.captcha = '* 验证码错误';drawCaptcha();shake('captcha-input');}
+    if (!agreeTerms.value) { shake('agreement-input'); return; }
     if (!errors.usertel && !errors.telecaptcha && !errors.captcha) {
         console.log('用户名:', usertel.value);
         console.log('短信验证码:', telecaptcha.value);
