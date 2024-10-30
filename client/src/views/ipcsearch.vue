@@ -34,15 +34,14 @@ import { ipctreeList } from '../mockData.js';
 const searchTerm = ref('');
 const treeData = ref(ipctreeList);
 
+
 const expandedTreeData = computed(() => {
     if (!searchTerm.value) return treeData.value;
-
     const expandNodesToMatch = (nodes) => {
         return nodes.map((node) => {
             const children = node.children ? expandNodesToMatch(node.children) : [];
             const isMatch = node.title.includes(searchTerm.value) || node.code.includes(searchTerm.value);
             const hasMatchingChildren = children.some((child) => child.isMatch || child.hasMatchingChildren);
-
             // 只展开匹配的结点
             return {
                 ...node,
@@ -53,7 +52,6 @@ const expandedTreeData = computed(() => {
             };
         });
     };
-
     return expandNodesToMatch(treeData.value);
 });
 </script>

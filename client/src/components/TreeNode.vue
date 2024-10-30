@@ -37,13 +37,13 @@ watch(
     },
     { immediate: true }
 );
-
+// 展开或折叠节点
 function toggle() {
     if (hasChildren.value) {
         isOpen.value = !isOpen.value;
     }
 }
-
+// 高亮搜索结果
 const highlightMatch = (text, term) => {
     if (!term) return text;
     const regex = new RegExp(`(${term})`, 'gi');
