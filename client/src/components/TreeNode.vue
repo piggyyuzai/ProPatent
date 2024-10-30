@@ -47,7 +47,7 @@ function toggle() {
 const highlightMatch = (text, term) => {
     if (!term) return text;
     const regex = new RegExp(`(${term})`, 'gi');
-    return text.replace(regex, '<span style="color:red;">$1</span>');
+    return text.replace(regex, '<span style="color:red;font-weight:bold;">$1</span>');
 };
 </script>
 
