@@ -55,7 +55,7 @@ const highlightMatch = (text, term) => {
 .tree-node {
     cursor: pointer;
     padding: 5px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 2px solid #c8d9f1;
 }
 .tree-node:hover {
     background-color: #dbedff;
