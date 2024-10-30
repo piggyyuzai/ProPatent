@@ -4,14 +4,14 @@
             {{ isOpen ? ' − ' : ' + ' }}
         </span>
         <span v-else style="color:#999;font-weight:bold;font-size:20px;"> ▪ </span>
-        <span v-html="highlightMatch(node.title, searchTerm)"></span>
+        <span v-html="highlightMatch(node.code + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + node.title, searchTerm)"></span>
     </div>
     <ul v-if="isOpen && hasChildren">
         <TreeNode
-                v-for="child in node.children"
-                :key="child.id"
-                :node="child"
-                :search-term="searchTerm"
+            v-for="child in node.children"
+            :key="child.code"
+            :node="child"
+            :search-term="searchTerm"
         />
     </ul>
 </template>
@@ -44,10 +44,10 @@ function toggle() {
     }
 }
 
-const highlightMatch = (title, term) => {
-    if (!term) return title;
+const highlightMatch = (text, term) => {
+    if (!term) return text;
     const regex = new RegExp(`(${term})`, 'gi');
-    return title.replace(regex, '<span style="color:red;">$1</span>');
+    return text.replace(regex, '<span style="color:red;">$1</span>');
 };
 </script>
 
@@ -57,6 +57,7 @@ const highlightMatch = (title, term) => {
     padding: 5px;
     border-bottom: 1px solid #ccc;
 }
-ul {
+.tree-node:hover {
+    background-color: #dbedff;
 }
 </style>

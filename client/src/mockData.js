@@ -35,43 +35,46 @@ export const contentList = [
 
 // 分类树数据
 export const ipctreeList = [
-    { id: '9', title: 'A01 农业；林业；畜牧业；狩猎；诱捕；捕鱼', children: [
-            { id: '25', title: 'A01B 农业或林业的整地；一般农业机械或农具的部件、零件或附件', children: [
-                    { id: '37', title: 'A01B1/00 手动工具', children: [
-                            { id: '74', title: 'A01B1/02 *锹；铲' },
-                            { id: '75', title: 'A01B1/04 **带齿的' },
-                            { id: '76', title: 'A01B1/06 *锄；手动中耕机' },
-                            { id: '77', title: 'A01B1/08 **带单铲刀的' },
-                            { id: '78', title: 'A01B1/10 **带双铲刀或多铲刀的' }]},
-                    { id: '38', title: 'A01B11/00 带有振动、挖掘或穿孔工作部件的犁', children: [
-                            { id: '79', title: 'A01B11/02 *用于轻耕的犁' },
-                            { id: '80', title: 'A01B11/04 **带有特殊工作部件的' },]},
-                    { id: '39', title: 'A01B13/00 专门用途的犁或类似的机具', children: [
-                            { id: '81', title: 'A01B13/02 *带排水工具的犁' },
-                            { id: '82', title: 'A01B13/04 **特殊设计的犁' },]},
-                    // 更多二级节点...
-                ]
-            },
-            { id: '26', title: 'A02 畜牧业；渔业设备', children: [
-                    { id: '40', title: 'A02B 水产养殖设备', children: [
-                            { id: '83', title: 'A02B1/00 *网箱结构' },
-                            { id: '84', title: 'A02B1/02 **用于开放水域的网箱' },]},
-                    { id: '41', title: 'A02C 畜牧设备', children: [
-                            { id: '85', title: 'A02C1/00 *牲畜喂养设备' },
-                            { id: '86', title: 'A02C1/02 **自动化喂养设备' },]},
-                    // 更多二级节点...
-                ]
-            },
-            // 更多一级节点...
-        ]
-    },
-    { id: '100', title: 'A03 食品加工；食品储存', children: [
-            { id: '101', title: 'A03B 切割、切片和分割设备', children: [
-                    { id: '102', title: 'A03B1/00 手动切割器' },
-                    { id: '103', title: 'A03B1/02 *带锯的切割器' }]},
-            { id: '104', title: 'A03C 乳制品加工设备', children: [
-                    { id: '105', title: 'A03C1/00 奶酪制造设备' },
-                    { id: '106', title: 'A03C1/02 *用于奶酪切割的设备' }]}
-        ]
-    }
+    { code: 'A01', title: '农业；林业；畜牧业；狩猎；诱捕；捕鱼', children: [
+            { code: 'A01B', title: '农业或林业的整地；一般农业机械或农具的部件、零件或附件', children: [
+                    { code: 'A01B1/00', title: '手动工具', children: [
+                            { code: 'A01B1/02', title: '*锹；铲' },
+                            { code: 'A01B1/04', title: '**带齿的' },
+                            { code: 'A01B1/06', title: '*锄；手动中耕机' },
+                            { code: 'A01B1/08', title: '**带单铲刀的' },
+                            { code: 'A01B1/10', title: '**带双铲刀或多铲刀的' },]},
+                    { code: 'A01B11/00', title: '带有振动、挖掘或穿孔工作部件的犁', children: [
+                            { code: 'A01B11/02', title: '*用于轻耕的犁' },
+                            { code: 'A01B11/04', title: '**带有特殊工作部件的' },]},
+                    { code: 'A01B13/00', title: '专门用途的犁或类似的机具', children: [
+                            { code: 'A01B13/02', title: '*带排水工具的犁' },
+                            { code: 'A01B13/04', title: '**特殊设计的犁' },
+                            { code: 'A01B13/06', title: '*用于种植的特殊犁' },]},]},]},
+    { code: 'A02', title: '畜牧业；渔业设备', children: [
+            { code: 'A02B', title: '水产养殖设备', children: [
+                    { code: 'A02B1/00', title: '*网箱结构' , children: [
+                            { code: 'A02B1/02', title: '**用于水产养殖的网箱' },]},
+                    { code: 'A02B1/02', title: '**用于开放水域的网箱' },]},]},
+    { code: 'A03', title: '食品加工；食品储存', children: [
+            { code: 'A03B', title: '切割、切片和分割设备', children: [
+                    { code: 'A03B1/00', title: '手动切割器' },
+                    { code: 'A03B1/02', title: '*带锯的切割器' },]},
+            { code: 'A03C', title: '乳制品加工设备', children: [
+                    { code: 'A03C1/00', title: '奶酪制造设备' },
+                    { code: 'A03C1/02', title: '*用于奶酪切割的设备' },
+                    { code: 'A03C1/04', title: '*奶酪包装设备' },]},
+            { code: 'A03D', title: '谷物和豆类加工设备', children: [
+                    { code: 'A03D1/00', title: '谷物清理设备' },
+                    { code: 'A03D1/02', title: '*用于去壳的设备' },
+                    { code: 'A03D1/04', title: '**去皮和切割设备' },]},]},
+    { code: 'A04', title: '制药；医疗设备', children: [
+            { code: 'A04A', title: '药物制备设备', children: [
+                    { code: 'A04A1/00', title: '药品混合设备' },
+                    { code: 'A04A1/02', title: '*药物包衣设备' },]},
+            { code: 'A04B', title: '手术器械', children: [
+                    { code: 'A04B1/00', title: '手术刀' },
+                    { code: 'A04B1/02', title: '*外科缝合设备' },
+                    { code: 'A04B1/04', title: '*微创手术器械' },]},]},
 ];
+
+

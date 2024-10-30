@@ -1,27 +1,26 @@
 <template>
     <div id="ipcsearch">
         <!-- 菜单栏 -->
-        <SideBar/>
+        <SideBar />
         <!-- 树形目录 -->
         <div class="tree-container-wrapper">
             <div class="title">IPC分类查询</div>
             <input
-                type="text"
-                v-model="searchTerm"
-                placeholder="输入搜索关键词"
-                class="search-input"
+                    type="text"
+                    v-model="searchTerm"
+                    placeholder="输入搜索关键词"
+                    class="search-input"
             />
             <div class="tree-container">
                 <ul>
                     <TreeNode
-                        v-for="node in expandedTreeData"
-                        :key="node.id"
-                        :node="node"
-                        :search-term="searchTerm"
+                            v-for="node in expandedTreeData"
+                            :key="node.code"
+                            :node="node"
+                            :search-term="searchTerm"
                     />
                 </ul>
             </div>
-
         </div>
     </div>
 </template>
@@ -29,8 +28,8 @@
 <script setup>
 import SideBar from '../components/Sidebar.vue';
 import TreeNode from '../components/TreeNode.vue';
-import {ref, computed} from 'vue';
-import {ipctreeList} from '../mockData.js';
+import { ref, computed } from 'vue';
+import { ipctreeList } from '../mockData.js';
 
 const searchTerm = ref('');
 const treeData = ref(ipctreeList);
@@ -41,7 +40,7 @@ const expandedTreeData = computed(() => {
     const expandNodesToMatch = (nodes) => {
         return nodes.map((node) => {
             const children = node.children ? expandNodesToMatch(node.children) : [];
-            const isMatch = node.title.includes(searchTerm.value);
+            const isMatch = node.title.includes(searchTerm.value) || node.code.includes(searchTerm.value);
             const hasMatchingChildren = children.some((child) => child.isMatch || child.hasMatchingChildren);
 
             // 只展开匹配的结点
@@ -73,6 +72,7 @@ const expandedTreeData = computed(() => {
     margin-bottom: 20px;
     text-align: center;
 }
+
 .tree-container-wrapper {
     min-width: 400px;
     flex: 1;
@@ -82,12 +82,14 @@ const expandedTreeData = computed(() => {
     flex-direction: column;
     align-items: center;
 }
+
 .search-input {
     padding: 6px 10px;
     width: 200px;
     border-radius: 6px;
     border: 2px solid #4d70ff;
 }
+
 .tree-container {
     min-width: 400px;
 }
