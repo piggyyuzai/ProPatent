@@ -61,7 +61,7 @@
                         </label>
                     </div>
                     <button id="input-file-button" class="send-button" @click="inputFile()">提交生成</button>
-                </div>s
+                </div>
 
                 <!--提取内容-->
                 <div id="extract-input">
