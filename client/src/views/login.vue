@@ -28,7 +28,7 @@
             <div class="input-group" id="agreement-input" style="font-size:14px;">
                 <input type="checkbox" v-model="agreeTerms" style="width:14px;"/>
                 我已同意
-                <router-link to="" style="color:#4d70ff;font-weight:bold;cursor:pointer;">使用协议</router-link>
+                <router-link to="" style="color:#4d70ff;font-weight:bold;cursor:pointer;">用户使用协议</router-link>
                 和
                 <router-link to="" style="color:#4d70ff;font-weight:bold;cursor:pointer;">隐私政策</router-link>
             </div>
