@@ -53,15 +53,15 @@
                         </div>
                     </div>
                     <div class="row" id="user-agreement" style="margin-bottom:30px;">
-                        <input type="checkbox" id="checkbox" v-model="isChecked" @change="userAgreement()">
+                        <input type="checkbox" id="checkbox" v-model="isChecked" @change="userAgreement()" style="margin-right:5px;cursor:pointer;">
+                        我已阅读并同意
+                        <span style="color:#4d70ff;font-weight:bold;cursor:pointer;" @click="userAgreement()">用户使用协议</span>
+                        并同意：生成内容仅供参考，不作为正式递交申请使用
                         <label for="checkbox" style="margin-left:5px;">
-                            我已阅读并同意
-                            <span style="color:#4d70ff;font-weight:bold;" @click="userAgreement()">《用户协议》</span>
-                            并同意：生成内容仅供参考，不作为正式递交申请使用
                         </label>
                     </div>
                     <button id="input-file-button" class="send-button" @click="inputFile()">提交生成</button>
-                </div>
+                </div>s
 
                 <!--提取内容-->
                 <div id="extract-input">
