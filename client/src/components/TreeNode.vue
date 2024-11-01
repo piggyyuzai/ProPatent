@@ -43,12 +43,26 @@ function toggle() {
         isOpen.value = !isOpen.value;
     }
 }
+
 // 高亮搜索结果
 const highlightMatch = (text, term) => {
     if (!term) return text;
-    const regex = new RegExp(`(${term})`, 'gi');
-    return text.replace(regex, '<span style="color:red;font-weight:bold;">$1</span>');
+
+    // 定义颜色数组，可以根据需求增加颜色数量
+    const colors = ['red', 'green', 'blue', 'orange', 'Fuchsia'];
+    const keywords = term.trim().split(/\s+/);
+
+    keywords.forEach((keyword, index) => {
+        // 使用颜色数组中的颜色，超过数组长度时循环使用颜色
+        const color = colors[index % colors.length];
+        const regex = new RegExp(`(${keyword})`, 'gi');
+        text = text.replace(regex, `<span style="color:${color}; font-weight:bold;">$1</span>`);
+    });
+
+    return text;
 };
+
+
 </script>
 
 <style scoped>

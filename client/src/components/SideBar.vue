@@ -28,7 +28,7 @@ const router = useRouter();
 const route = useRoute();
 
 // 用户信息
-import { userList } from '../mockData.js';
+import { userList } from '../data/mockData.js';
 import { userid } from '../App.vue';
 const user = ref(userList.find(u => u.id === userid));
 

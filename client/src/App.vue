@@ -18,9 +18,9 @@ body {
     overflow-y: auto;
     -ms-overflow-style: none;
 }
-::-webkit-scrollbar {
-    display: none;
-}
+/*::-webkit-scrollbar {*/
+/*    display: none;*/
+/*}*/
 
 .shake {
     animation: shake 0.3s;

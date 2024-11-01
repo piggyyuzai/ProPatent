@@ -67,7 +67,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import SideBar from '../components/Sidebar.vue';
-import { contentList } from '../mockData.js';
+import { contentList } from '../data/mockData.js';
 
 
 onMounted(() => {
