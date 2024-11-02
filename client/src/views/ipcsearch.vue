@@ -37,20 +37,19 @@ import { ref, computed, onMounted } from 'vue';
 import  ipctreeList  from '../data/ipctreeList.json';
 
 const searchTerm = ref('');
-const treeData = ref(ipctreeList);
+// const treeData = ref(ipctreeList);
 
-// const treeData = ref([]);
-async function loadTreeData() {
+const treeData = ref([]);
+// 异步加载 ipc 分类数据
+const loadTreeData = async () => {
     try {
-        const response = await fetch('/ipctreeList.json'); // 从 public 文件夹中获取 JSON
-        if (!response.ok) throw new Error('数据加载失败');
-        treeData.value = await response.json(); // 将获取的数据赋值给 treeData
+        treeData.value = ipctreeList;
     } catch (error) {
         console.error('加载ipc分类数据出错:', error);
     }
 }
 onMounted(() => {
-    // loadTreeData();
+    loadTreeData();
 });
 
 const expandedTreeData = computed(() => {
