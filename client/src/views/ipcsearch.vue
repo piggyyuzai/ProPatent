@@ -5,16 +5,17 @@
         <!-- 树形目录 -->
         <div class="tree-container-wrapper">
             <div class="title">IPC分类查询</div>
-            <div style="display: flex;justify-content:center;align-items:center;">
+            <div style="display:flex;justify-content:center;align-items:center;">
                 <img src="../assets/search.png" style="width:20px;height:20px;margin-right:5px;" />
                 <div style="color:#4d70ff;font-weight:bold;">搜索：</div>
                 <input
                     type="text"
                     v-model="searchTerm"
-                    placeholder="可使用空格分隔多个关键词"
+                    placeholder="输入分类号或关键词搜索"
                     class="search-input"
                 />
             </div>
+            <div style="font-size:10px;margin-top:4px;">* 可输入多个关键词，用空格分隔，搜索更准确</div>
             <div class="tree-container">
                 <ul>
                     <TreeNode
@@ -59,7 +60,7 @@ const expandedTreeData = computed(() => {
     const expandNodesToMatch = (nodes) => {
         return nodes.map((node) => {
             const children = node.children ? expandNodesToMatch(node.children) : [];
-            const isMatch = keywords.every(keyword => node.title.toLowerCase().includes(keyword));
+            const isMatch = keywords.every(keyword => node.title.toLowerCase().includes(keyword) || node.code.toLowerCase().includes(keyword));
             // const isMatch = node.title.includes(searchTerm.value) || node.code.includes(searchTerm.value);
             const hasMatchingChildren = children.some((child) => child.isMatch || child.hasMatchingChildren);
             // 只展开匹配的结点
