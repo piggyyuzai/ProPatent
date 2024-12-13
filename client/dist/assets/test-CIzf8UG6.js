@@ -1,1 +1,0 @@
-import{S as e}from"./SideBar-DN54GrEV.js";import{_ as o}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{c as a,a as s,f as r,o as d}from"./index-Blb7us2k.js";const _={id:"test"},c={__name:"test",setup(f){return(p,t)=>(d(),a("div",_,[s(e),t[0]||(t[0]=r(" awddadqw "))]))}},l=o(c,[["__scopeId","data-v-df6f7af9"]]);export{l as default};
