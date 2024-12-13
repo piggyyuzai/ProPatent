@@ -1,1 +1,0 @@
-import{S as o}from"./SideBar-CMMRRMIy.js";import{_ as r}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{c as t,a as s,f as a,o as c}from"./index-Dikb0wuw.js";const _={id:"myorders"},d={__name:"myorders",setup(m){return(p,e)=>(c(),t("div",_,[s(o),e[0]||(e[0]=a(" 开发中... "))]))}},l=r(d,[["__scopeId","data-v-32cbbcfe"]]);export{l as default};
